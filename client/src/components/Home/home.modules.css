@@ -1,0 +1,10 @@
+.homeTitle{
+    margin-top: 3em;
+}
+
+.countries{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}

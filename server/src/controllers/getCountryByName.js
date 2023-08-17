@@ -1,10 +1,16 @@
 const {Country, Activity} = require('../db.js');
+const { Op } = require("sequelize");
 
-const getCountryById= async (req,res)=>{
-    const {id}=req.params
+const getCountryByName= async (req,res)=>{
+    const {name}=req.params
     try {
         const selectedCountry= await Country.findOne({ 
-            where: { id: id },
+            where: {
+                [Op.or]: [
+                    { commonName: { [Op.iLike]: `%${name}%` } }, // Compare with common name
+                    { officialName: { [Op.iLike]: `%${name}%` } } // Compare with official name
+                ]
+            },
             include:{
                 model: Activity,
                 attributes: ["name"],
@@ -21,4 +27,6 @@ const getCountryById= async (req,res)=>{
     }
 }
 
-module.exports=getCountryById
+module.exports=getCountryByName
+
+

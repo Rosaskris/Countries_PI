@@ -22,7 +22,8 @@ const populateDB= async (req,res)=>{
         });
         
         await Country.bulkCreate(countriesToCreate);
-        return res.status(200).json('Database populated correctly');
+        
+        return res.status(201).json('Database populated correctly');
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
