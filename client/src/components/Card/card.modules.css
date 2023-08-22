@@ -1,8 +1,12 @@
 .card{
     margin-top: 1em;
+    margin-bottom: 3em;
     margin-left: 1em;
     margin-right: 1em;
     font-size: 0.5em;
+    width: 15%;
+    background-color: rgb(224, 221, 221);
+    border-radius: 10em;
 }
 
 .flag{

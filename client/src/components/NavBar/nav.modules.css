@@ -9,12 +9,13 @@
     width: 100%;
     background: rgb(46, 43, 43); 
     color: whitesmoke;
-    padding: 10px 0;
+    padding: 0.2em 0;
     z-index:1000;
+    display: flex;
+    justify-content: space-between;
 }
 .titleNav{
     margin-left: 1em;
     display: flex;
-    align-self: flex-start;
     font-size: 0.8em;
 }

@@ -37,6 +37,12 @@ module.exports = (sequelize) => {
     population:{
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    languages:{
+      type: DataTypes.STRING,
+    },
+    maps:{
+      type: DataTypes.STRING,
     }
   });
 };

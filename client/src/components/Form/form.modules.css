@@ -1,0 +1,27 @@
+.formBox{
+    background-color: rgb(240, 233, 233);
+    padding: 1em;
+    border-radius: 2em;
+    border-color: rgb(119, 10, 43);
+    border-style:groove
+}
+
+.scroll-container{
+    max-height: 10em;
+    max-width: 6em; /* Adjust this value to set the maximum height of the scrollable box */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Add border for better appearance */
+    padding: 10px; /* Add some padding for spacing */
+}
+
+.SelectedCountries{
+    width: 100%;
+    
+}
+
+.Errors{
+    color: red;
+}
+.submitButton{
+    background-color: black
+}

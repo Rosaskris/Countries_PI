@@ -10,9 +10,9 @@ const router = Router();
 
 router.get("/populate", populateDB );
 router.get("/countries", getCountries);
-router.get("/countryid/:id", getCountryById);
-router.get("/countryname/:name", getCountryByName);
-router.post("/activities/", postActivity);
+router.get("/country/:id", getCountryById);
+router.get("/country", getCountryByName);
+router.post("/activities", postActivity);
 router.get("/activities", getActivities)
 
 

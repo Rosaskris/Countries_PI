@@ -7,7 +7,7 @@ const populateDB= async (req,res)=>{
     try {
         const { data } = await axios.get("http://localhost:5000/countries");
         const countriesToCreate = data.map(countryData => {
-            const { cca3, name, flags, continents, capital, subregion, area, population } = countryData;
+            const { cca3, name, flags, continents, capital, subregion, area, population, languages, maps } = countryData;
             return {
                 id: cca3,
                 commonName: name.common,
@@ -17,7 +17,9 @@ const populateDB= async (req,res)=>{
                 capital: capital ? capital[0] : null,
                 subregion,
                 area,
-                population
+                population,
+                languages: languages? Object.values(languages).join(', ') : null,
+                maps:maps.googleMaps
             };
         });
         

@@ -1,20 +1,20 @@
 const {Activity, Country} = require('../db.js');
 
 const postActivity= async (req,res)=>{
-    const {name, dificulty,duration,season,countries}= req.body
+    const {name, difficulty,duration,season,countries}= req.body
     try{
-        if(!name || !dificulty || !duration || !season || !countries){
+        if(!name || !difficulty || !duration || !season || !countries){
             return res.status(404).json({ message: 'Missing informarion' })
         } else{
-            const newActivity= await Activity.create({name,dificulty,duration,season})
+            const newActivity= await Activity.create({name,difficulty,duration,season})
             const associatedCountries= await Country.findAll({
                 where:{
-                    id:countries
+                    commonName:countries
                 }
             })
             console.log(associatedCountries)
             if (associatedCountries.length > 0) {
-                await newActivity.addCountries(associatedCountries.datavalues);
+                await newActivity.addCountries(associatedCountries);
             }
             
             return res.status(201).json(newActivity)
