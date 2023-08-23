@@ -6,6 +6,8 @@ const FILTER_CONTINENT= 'FILTER_CONTINENT'
 const ORDER_ALPHABETIC='ORDER_ALPHABETIC'
 const ORDER_POPULATION='ORDER_POPULATION'
 const SEARCH='SEARCH'
+const LOAD_ACTIVITIES= 'LOAD_ACTIVITIES'
+const FILTER_ACTIVITY= 'FILTER_ACTIVITY'
 
 const loadContent=()=>{
     return async (dispatch) => {
@@ -20,6 +22,28 @@ const loadContent=()=>{
             throw(err)
         }
     };
+}
+
+const loadActivities=()=>{
+    return async (dispatch) => {
+        try{
+        const {data}= await axios.get('http://localhost:3001/myCountries/activities')
+                return dispatch({
+                    type: LOAD_ACTIVITIES,
+                    payload: data,
+                });
+        }
+        catch (err){
+            throw(err)
+        }
+    };
+}
+
+const filterActivities=(name)=>{
+    return{
+        type:FILTER_ACTIVITY,
+        payload: name
+    }
 }
 
 const searchCountry=(name)=>{
@@ -72,5 +96,5 @@ const orderPopulation=(order)=>{
 
 
 export{
-        filterByContinents, loadContent,resetFilter, orderAlfabetico, orderPopulation, searchCountry, SEARCH, ORDER_ALPHABETIC, ORDER_POPULATION, RESET_FILTER, FILTER_CONTINENT, LOAD_CONTENT
+        filterByContinents, loadContent,resetFilter, orderAlfabetico, orderPopulation, searchCountry,loadActivities, filterActivities, FILTER_ACTIVITY, LOAD_ACTIVITIES, SEARCH, ORDER_ALPHABETIC, ORDER_POPULATION, RESET_FILTER, FILTER_CONTINENT, LOAD_CONTENT
 }

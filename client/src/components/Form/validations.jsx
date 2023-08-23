@@ -4,7 +4,7 @@ export default function validations(data){
     if (!data.name) {
         errors.name = 'Name required';
 
-    }if (data.name.length<3 ||data.name.length>15 ) {
+    }if (data.name.length<3 ||data.name.length>20 ) {
         errors.name = 'Name has an invalid length';
 
     }if (!data.difficulty) {

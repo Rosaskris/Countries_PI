@@ -2,8 +2,12 @@ import './form.modules.css'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import validations from './validations';
+import { useDispatch } from 'react-redux';
+import { loadActivities } from '../Redux/action-types';
 
 export default function Form(props){
+    const dispatch= useDispatch()
+
     const [formData, setFormData]= useState({
         name: '',
         difficulty: 1,
@@ -64,8 +68,10 @@ export default function Form(props){
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        const hasErrors = Object.values(errors).some(error => error);
         
-        if(!errors){
+        if(!hasErrors){
             const{name,difficulty,duration,season,selectedCountries}=formData
             const newActivity = {
             name,
@@ -74,7 +80,7 @@ export default function Form(props){
             season,
             countries:selectedCountries
             };
-            //console.log(newActivity)
+            console.log(newActivity)
             axios.post('http://localhost:3001/myCountries/activities', newActivity)
             .then(response => {
                 window.alert('Activity created!');
@@ -86,6 +92,7 @@ export default function Form(props){
                     season: 'Summer',
                     selectedCountries: [],
                 })
+                dispatch(loadActivities())
             })
             .catch(error => {
                 window.alert(error);
@@ -137,7 +144,7 @@ export default function Form(props){
         <label>
             Countries:
             <select multiple value={formData.selectedCountries} name='selectedCountries' onChange={handleCountryChange}>
-            {console.log(formData.selectedCountries)}
+            {/* {console.log(formData.selectedCountries)} */}
             {formData.countries.map(country => (
             <option key={country.commonName} value={country.commonName}>{country.commonName}</option>
             ))}

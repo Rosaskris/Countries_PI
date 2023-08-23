@@ -5,10 +5,10 @@ export default function Card(props) {
     return(
         <div className="card">
             <Link to={`/detail/${props.id}`}>
-            <h2>{props.name}</h2>
+            <h1 className='cardName'>{props.name}</h1>
             </Link>
             <img src={props.flag} alt="country flag" className="flag"/>
-            <h3>Continent: {props.continent}</h3>
+            <h2>Continent: {props.continent}</h2>
         </div>
     )
 

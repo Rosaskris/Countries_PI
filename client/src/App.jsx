@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import Detail from './components/Detail/detailPage'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadContent, resetFilter, searchCountry } from './components/Redux/action-types'
+import { loadActivities, loadContent, resetFilter, searchCountry } from './components/Redux/action-types'
 import Form from './components/Form/formPage'
 
 function App() {
@@ -31,6 +31,11 @@ function App() {
   useEffect(() => {
     dispatch(loadContent());
   }, [dispatch]);
+
+//load activities
+useEffect(() => {
+  dispatch(loadActivities());
+}, [dispatch]);
 
 //reset filter
   useEffect(()=>{
@@ -60,7 +65,7 @@ const backHome=()=>{
 
     
   return (
-    <div>
+    <div className='app'>
       {location.pathname !=='/' && <Nav search={onSearch} backHome={backHome}/>}
       <Routes>
       <Route path='/' element={<Landing/>}/>
