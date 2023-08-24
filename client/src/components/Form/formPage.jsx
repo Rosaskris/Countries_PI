@@ -39,18 +39,29 @@ export default function Form(props){
     }, []);
 
     const handleCountryChange=(e)=>{
-        const selectedData= e.target.selectedOptions
-        setFormData({
-            ...formData,
-            selectedCountries:Array.from(selectedData, option=>option.value)
-        })
+        const selectedCountry= e.target.value
+        const existsCountry = formData.selectedCountries.includes(selectedCountry);
+        if (existsCountry) return('Error!')
+        setFormData((prevData) => ({
+            ...prevData,
+            selectedCountries: [...prevData.selectedCountries, selectedCountry]
+        }));
         setErrors(
             validations({
                 ...formData,
-                selectedCountries:Array.from(selectedData, option=>option.value)
+                selectedCountries:  [...formData.selectedCountries, selectedCountry]
             } ,formData, errors)
         )
     }
+    const handleRemoveClick = (e) => {
+        e.preventDefault();
+        const name = e.target.name;
+        const countries = formData.selectedCountries.filter(c => c !== name);
+        setFormData({
+            ...formData,
+            selectedCountries:countries
+        });
+      }
 
     const handleChange=(event)=>{
         setFormData({
@@ -105,8 +116,8 @@ export default function Form(props){
 
     return (
         <div className='formBox'>
-        <h2>Create Activity</h2>
-        <form onSubmit={handleSubmit}>
+        <div><h2>Create Activity</h2></div>
+        <form onSubmit={handleSubmit} className='form'>
         <div className='name'> 
             <label>
             Name:
@@ -143,20 +154,40 @@ export default function Form(props){
         <div className='countries'>
         <label>
             Countries:
-            <select multiple value={formData.selectedCountries} name='selectedCountries' onChange={handleCountryChange}>
+            <select defaultValue={'None'} name='selectedCountries' onChange={handleCountryChange}>
             {/* {console.log(formData.selectedCountries)} */}
             {formData.countries.map(country => (
             <option key={country.commonName} value={country.commonName}>{country.commonName}</option>
-            ))}
+            ))
+            }
             </select>
-            <div>
+            <div className='selectedCountry'>
+                {formData.selectedCountries.length ?
+                    <div className='countryContainer'>
+                    {formData.selectedCountries.map(country => {
+                    const actualCountry = formData.countries.find((c) => c.commonName === country)
+                    if (actualCountry) {
+                    return (
+                        <div key={actualCountry.id} className='countriesContainer'>
+                            <a href='#' onClick={handleRemoveClick} name={actualCountry.commonName} className='closeButton'>X</a>
+                            <img src={actualCountry.flags} alt={`${actualCountry.id} flag`} className='flagSelected' />
+                        </div>)
+                    }else{ 
+                        return <div className='emptyContainer'></div>}
+
+            })}
+            </div> : <div className='noCountries'>None</div>
+            }
+        </div> 
+        {console.log([formData.selectedCountries, formData.countries])} 
+            {/* <div>
             <input
                 type="text"
                 value={formData.selectedCountries.join(', ')}
                 readOnly
                 className='SelectedCountries'
             />
-            </div>
+            </div> */}
             </label>
             {errors.selectedCountries && <p className='Errors'>{errors.selectedCountries}</p>}
         </div>

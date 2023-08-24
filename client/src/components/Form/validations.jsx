@@ -27,3 +27,5 @@ export default function validations(data){
     }
     return errors;
 }
+
+

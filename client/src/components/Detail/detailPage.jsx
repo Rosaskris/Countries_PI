@@ -22,9 +22,13 @@ export default function Detail(props){
 
     return(
         <div className='details'>
+            <div className='countryName'>
             {country.commonName && <h1>{country.commonName}</h1>}
             {country.officialName && <h2>Official Name: {country.officialName}</h2>}
             {country.flags && <img src={country.flags} alt="flag" />}
+            </div>
+            <hr />
+        <div className='countryInfo'>
             {country.continents && <h3>Continent: {country.continents}</h3>}
             {country.capital &&<h3>Capital: {country.capital}</h3>}
             {country.subregion &&<h3>Subregion: {country.subregion}</h3>}
@@ -42,7 +46,7 @@ export default function Detail(props){
             </div>}
             {country.id && <h3>ID: {country.id}</h3>}
             {country.maps &&<a href={country.maps} target="_blank" rel="noopener noreferrer">Click to view map</a>}
-
+        </div>
         </div>
     )
 }

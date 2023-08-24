@@ -1,9 +1,26 @@
 .formBox{
-    background-color: rgb(240, 233, 233);
+    font-family: monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-self: center;
+    background-color: rgb(223, 217, 217);
     padding: 1em;
+    margin-top: 5em;
     border-radius: 2em;
-    border-color: rgb(119, 10, 43);
-    border-style:groove
+    border-color: rgb(204, 35, 86);
+    border-style:groove;
+    color: black;
+    height: 25em;
+    width: 50%;
+    margin-left: 20em;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .scroll-container{
@@ -13,10 +30,27 @@
     border: 1px solid #ccc; /* Add border for better appearance */
     padding: 10px; /* Add some padding for spacing */
 }
+.countries{
+    align-content: flex-start;
+}
+.countryContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(104, 96, 96, 0.459);
+    height: 5em;
+    border-radius: 1em;
+}
 
-.SelectedCountries{
-    width: 100%;
-    
+/* .countriesContainer{
+
+} */
+
+.flagSelected{
+    width: 60px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 .Errors{
