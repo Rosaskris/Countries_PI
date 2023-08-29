@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgb(46, 43, 43); 
+    background: rgb(46, 43, 46); 
     color: whitesmoke;
     padding: 0.2em 0;
     z-index:1000;
@@ -17,5 +17,37 @@
 .titleNav{
     margin-left: 1em;
     display: flex;
-    font-size: 0.8em;
+    font-size: 1.2em;
+    color: aqua;
+    font-family: monospace;
+}
+
+.buttonsNav{
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.buttonNav{
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    background-color: rgb(23, 89, 94);
+    color: white;
+    border-radius: 0.5em;
+}
+
+.searchBar{
+    display: flex;
+    align-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 0.8em;
+    margin-left: 40em;
+}
+
+.searchButton{
+    background-color: rgb(27, 102, 107);
+    color: white;
+    border-radius: 0.5em;
 }

@@ -7,34 +7,44 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import Detail from './components/Detail/detailPage'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadActivities, loadContent, resetFilter, searchCountry } from './components/Redux/action-types'
+import { SEARCH, loadActivities, loadContent, resetFilter, searchCountry, setLoading } from './components/Redux/action-types'
 import Form from './components/Form/formPage'
+import Activity from './components/Activities/activities'
 
 function App() {
+  const loading= useSelector(state=>state.loading)
   let location= useLocation()
   const [countries, setCountries]= useState([])
   const dispatch = useDispatch();
   let myCountries = useSelector(state => state.myCountries);
+  
 
   //initialRender
     useEffect(() => {
+      dispatch(setLoading(true))
       axios.get('http://localhost:3001/myCountries/countries')
       .then(response => {
           setCountries(response.data);
+          dispatch(setLoading(false))
       })
       .catch(error => {
           console.error('Error fetching countries:', error);
+          dispatch(setLoading(false))
       });
       }, []);
 
 //load content of allCountries
   useEffect(() => {
-    dispatch(loadContent());
+    if (!loading){
+      dispatch(loadContent());
+    }
   }, [dispatch]);
 
 //load activities
 useEffect(() => {
-  dispatch(loadActivities());
+  if(!loading){
+    dispatch(loadActivities());
+  }
 }, [dispatch]);
 
 //reset filter
@@ -45,10 +55,21 @@ useEffect(() => {
   }, [dispatch, location.pathname, myCountries.length])
 
 //reset seCountries
+const backHome = () => {
+    dispatch(setLoading(true))
+    axios.get('http://localhost:3001/myCountries/countries')
+    .then(response => {
+        dispatch(resetFilter())
+        setCountries(response.data);
+        dispatch(setLoading(false))
+    })
+    .catch(error => {
+        console.error('Error fetching countries:', error);
+        dispatch(setLoading(false))
+    });
+  
+};
 
-const backHome=()=>{
-    dispatch(loadContent())
-  }
 
 //pages
     const [currentPage, setCurrentPage] = useState(1);
@@ -57,11 +78,22 @@ const backHome=()=>{
         setCurrentPage(newPage);
     };
 //searchName
-    const onSearch=(name)=>{
-      const result=dispatch(searchCountry(name))
-      if(result) {setCountries(data)
-      setCurrentPage(1)}
-    }
+const onSearch = async (name) => {
+  if (!loading) {
+      try {
+          const response = await dispatch(searchCountry(name));
+          if (response && response.type === SEARCH && response.payload && response.payload.length > 0) {
+              setCountries(name);
+              setCurrentPage(1);
+          } else {
+              window.alert('Are you sure about that name?');
+          }
+      } catch (error) {
+          console.error('Error searching country', error);
+      }
+  }
+};
+
 
     
   return (
@@ -72,6 +104,7 @@ const backHome=()=>{
       <Route path='/home' element={<Home countries={countries} onPageChange={handlePageChange} currentPage={currentPage}/>}/>
       <Route path='/detail/:id' element={<Detail/>}/>
       <Route path='/form' element={<Form/>}/>
+      <Route path='/activities' element={<Activity/>}/>
       </Routes>
     </div>
   )

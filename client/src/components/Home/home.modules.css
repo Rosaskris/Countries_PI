@@ -4,6 +4,15 @@
     align-items: center;
     margin-top: 5em;
 }
+.loading{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-top: 5em;
+    color: rgb(41, 158, 167);
+    font-family: monospace;
+}
 
 .filters{
     display: flex;
@@ -11,6 +20,9 @@
 }
 .filter{
     margin-left: 1em;
+    background-color: rgb(24, 100, 105);
+    color: white;
+    border-radius: 0.5em;
 }
 
 .homeTitle{
@@ -23,8 +35,25 @@
     align-self: center;
     align-content: center;
     justify-content: center;
+    min-width: 80em;
 }
 
 .pages{
     font-size: 0.7em;
+}
+
+.buttonPages{
+    background-color: rgb(24, 100, 105);
+    color: white;
+    border-radius: 0.5em;
+}
+.buttonPages:disabled{
+    background-color: rgba(35, 42, 43, 0.411);
+    color: rgb(109, 109, 109);
+    border-radius: 0.5em;
+}
+
+.numberPages{
+    background-color: rgb(9, 36, 37);
+    color: white;
 }

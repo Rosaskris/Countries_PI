@@ -3,15 +3,15 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import validations from './validations';
 import { useDispatch } from 'react-redux';
-import { loadActivities } from '../Redux/action-types';
+import { loadActivities, loadContent } from '../Redux/action-types';
 
 export default function Form(props){
     const dispatch= useDispatch()
 
     const [formData, setFormData]= useState({
         name: '',
-        difficulty: 1,
-        duration: '',
+        difficulty: "1",
+        duration: 1,
         season: 'Summer',
         selectedCountries: [],
         countries: []
@@ -40,18 +40,20 @@ export default function Form(props){
 
     const handleCountryChange=(e)=>{
         const selectedCountry= e.target.value
-        const existsCountry = formData.selectedCountries.includes(selectedCountry);
-        if (existsCountry) return('Error!')
-        setFormData((prevData) => ({
-            ...prevData,
-            selectedCountries: [...prevData.selectedCountries, selectedCountry]
-        }));
-        setErrors(
-            validations({
-                ...formData,
-                selectedCountries:  [...formData.selectedCountries, selectedCountry]
-            } ,formData, errors)
-        )
+        if(selectedCountry!= 'null'){
+            const existsCountry = formData.selectedCountries.includes(selectedCountry);
+            if (existsCountry) return('Error!')
+            setFormData((prevData) => ({
+                ...prevData,
+                selectedCountries: [...prevData.selectedCountries, selectedCountry]
+            }));
+            setErrors(
+                validations({
+                    ...formData,
+                    selectedCountries:  [...formData.selectedCountries, selectedCountry]
+                } ,formData, errors)
+            )
+        }
     }
     const handleRemoveClick = (e) => {
         e.preventDefault();
@@ -98,12 +100,13 @@ export default function Form(props){
                 setFormData({
                     ...formData,
                     name: '',
-                    difficulty: 1,
-                    duration: '',
+                    difficulty: "1",
+                    duration: 1,
                     season: 'Summer',
                     selectedCountries: [],
                 })
                 dispatch(loadActivities())
+                dispatch(loadContent())
             })
             .catch(error => {
                 window.alert(error);
@@ -116,32 +119,33 @@ export default function Form(props){
 
     return (
         <div className='formBox'>
-        <div><h2>Create Activity</h2></div>
+        <div className='part1'>
         <form onSubmit={handleSubmit} className='form'>
-        <div className='name'> 
+        <div><h2>Create Activity</h2></div>
+        <div className='inputForm'> 
             <label>
-            Name:
+            Name: 
             <input type="text" value={formData.name} name='name' onChange={handleChange} />
-            </label>
             {errors.name && <p className='Errors'>{errors.name}</p>}
+            </label>
         </div>
-        <div className='difficulty'> 
+        <div className='inputForm'> 
             <label>
-            Difficulty:
+            Difficulty: 
             <input type="number" value={formData.difficulty} name='difficulty' onChange={handleChange} />
             </label>
             {errors.difficulty && <p className='Errors'>{errors.difficulty}</p>}
         </div>
-        <div className='duration'>
+        <div className='inputForm'>
             <label>
-            Duration (hours):
+            Duration (hours): 
             <input type="number" value={formData.duration} name='duration' onChange={handleChange} />
-            </label>
             {errors.duration && <p className='Errors'>{errors.duration}</p>}
+            </label>
         </div>   
-        <div className='season'>
+        <div className='inputForm'>
             <label>
-            Season:
+            Season: 
             <select value={formData.season} name='season' onChange={handleChange}>
                 <option value="Summer">Summer</option>
                 <option value="Fall">Fall</option>
@@ -151,50 +155,47 @@ export default function Form(props){
             </label>
             {errors.season && <p className='Errors'>{errors.season}</p>}
         </div>
-        <div className='countries'>
+        <div className='inputForm'>
         <label>
-            Countries:
+            Countries: 
             <select defaultValue={'None'} name='selectedCountries' onChange={handleCountryChange}>
             {/* {console.log(formData.selectedCountries)} */}
+            <option value='null'>Select Country</option>
             {formData.countries.map(country => (
             <option key={country.commonName} value={country.commonName}>{country.commonName}</option>
             ))
             }
             </select>
-            <div className='selectedCountry'>
+            </label>
+            {errors.selectedCountries && <p className='Errors'>{errors.selectedCountries}</p>}
+        </div>
+        <div className='buttonSubmit'>
+            <button type='submitButton' className='submitButton'>Create Activity</button>
+        </div>
+        </form>
+        </div>
+        <div className='part2'>
+        <div className='selectedCountry'>
                 {formData.selectedCountries.length ?
                     <div className='countryContainer'>
                     {formData.selectedCountries.map(country => {
-                    const actualCountry = formData.countries.find((c) => c.commonName === country)
-                    if (actualCountry) {
-                    return (
-                        <div key={actualCountry.id} className='countriesContainer'>
+                        const actualCountry = formData.countries.find((c) => c.commonName === country)
+                        if (actualCountry) {
+                            return (
+                                <div key={actualCountry.id} className='countriesContainer'>
                             <a href='#' onClick={handleRemoveClick} name={actualCountry.commonName} className='closeButton'>X</a>
                             <img src={actualCountry.flags} alt={`${actualCountry.id} flag`} className='flagSelected' />
                         </div>)
                     }else{ 
                         return <div className='emptyContainer'></div>}
-
-            })}
+                        
+                    })}
             </div> : <div className='noCountries'>None</div>
             }
+            <h4>Selected Countries</h4>
         </div> 
-        {console.log([formData.selectedCountries, formData.countries])} 
-            {/* <div>
-            <input
-                type="text"
-                value={formData.selectedCountries.join(', ')}
-                readOnly
-                className='SelectedCountries'
-            />
-            </div> */}
-            </label>
-            {errors.selectedCountries && <p className='Errors'>{errors.selectedCountries}</p>}
+        {/* {console.log([formData.selectedCountries, formData.countries])}  */}
         </div>
-        <div className='buttonSubmit'>
-            <button type='submitButton'>Create Activity</button>
-        </div>
-        </form>
         </div>
     );
 }

@@ -1,14 +1,21 @@
 import './home.modules.css'
 import Card from '../Card/card'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation } from '../Redux/action-types';
 
 const Home=({countries, onPageChange, currentPage})=>{
+    const countriesPerPage = 10;
+    
+    const indexOfLastCountry = currentPage * countriesPerPage;
+    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
     const dispatch= useDispatch();
     let myCountries = useSelector(state => state.myCountries);
-    let allActivities = useSelector(state => state.allActivities)
+    let allActivities = useSelector(state => state.allActivities);
+    const loading= useSelector(state=>state.loading)
     const[aux, setAux]=useState(false)
+    // const [currentCountries, setCurrentCountries]=useState(countries.slice(indexOfFirstCountry, indexOfLastCountry))
+    // const [totalPages, setTotalPages]=useState(Math.ceil(countries.length / countriesPerPage))
 
     const handleFilter=(e)=>{
         dispatch(filterByContinents(e.target.value))
@@ -31,16 +38,20 @@ const Home=({countries, onPageChange, currentPage})=>{
         onPageChange(1)
     }
 
-    const countriesPerPage = 10;
+    // useEffect(()=>{
+        if(loading){
+            return(
+                <div className='loading'><h1>LOADING...</h1></div>
+            )
+        }else{
+        const currentCountries = myCountries.length
+        ? myCountries.slice(indexOfFirstCountry, indexOfLastCountry)
+        : countries.slice(indexOfFirstCountry, indexOfLastCountry);
 
-    const indexOfLastCountry = currentPage * countriesPerPage;
-    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-    const currentCountries = myCountries.length
-    ? myCountries.slice(indexOfFirstCountry, indexOfLastCountry)
-    : countries.slice(indexOfFirstCountry, indexOfLastCountry);
-    const totalPages = myCountries.length
-    ? Math.ceil(myCountries.length / countriesPerPage)
-    : Math.ceil(countries.length / countriesPerPage)
+        const totalPages = myCountries.length
+        ? Math.ceil(myCountries.length / countriesPerPage)
+        : Math.ceil(countries.length / countriesPerPage)
+
     
         return(
         <div className='homePage'>
@@ -84,22 +95,24 @@ const Home=({countries, onPageChange, currentPage})=>{
             {(currentCountries.map((e) => (
             <Card key={e.id} flag={e.flags} name={e.commonName} id={e.id} continent={e.continents} />
             )))}
+            {console.log(currentCountries)}
         </div>
             <div className='pages'>
-            <button disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}>
+            <button className='buttonPages'disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}>
                 Previous
             </button>
             {Array.from({ length: totalPages }, (_, index) => (
-                <button key={index + 1} onClick={() => onPageChange(index + 1)}>
+                <button className='numberPages' key={index + 1} onClick={() => onPageChange(index + 1)}>
                 {index + 1}
                 </button>
             ))}
-            <button disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
+            <button className='buttonPages' disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
                 Next
             </button>
             </div>
             </div>
-        )
+            
+        )}
     
 
 }

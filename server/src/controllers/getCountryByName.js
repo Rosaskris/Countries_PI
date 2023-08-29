@@ -26,7 +26,7 @@ const getCountryByName= async (req,res)=>{
                 }
             }
         });
-        if (!selectedCountry) {
+        if (!selectedCountry.length) {
             return res.status(404).json({ message: 'Country not found' });
             } else{ return res.status(200).json(selectedCountry);}
     } catch (error) {

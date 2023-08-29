@@ -2,28 +2,28 @@ import './detail.modules.css'
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setDetail, setLoading } from '../Redux/action-types';
+
 
 export default function Detail(props){
-
+    const loading=useSelector(state=>state.loading);
+    const country= useSelector(state=>state.myCountries)
+    const dispatch = useDispatch();
     const {id}= useParams();
-    const [country, setCountry]= useState({});
+    // const [country, setCountry]= useState({});
 
     useEffect(() => {
-    axios.get(`http://localhost:3001/myCountries/country/${id}`)
-    .then(response=>{
-            setCountry(response.data);
-            // return setCountry({});
-        }
-        ).catch (error=>{
-            window.alert(error)
-        })
+    if(!loading){
+        dispatch(setDetail(id))
+    }
     },[id])
     
 
     return(
         <div className='details'>
             <div className='countryName'>
-            {country.commonName && <h1>{country.commonName}</h1>}
+            {country.commonName && <h2>{country.commonName}</h2>}
             {country.officialName && <h2>Official Name: {country.officialName}</h2>}
             {country.flags && <img src={country.flags} alt="flag" />}
             </div>

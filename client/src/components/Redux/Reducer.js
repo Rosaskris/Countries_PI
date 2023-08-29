@@ -1,10 +1,11 @@
-import {LOAD_CONTENT, FILTER_CONTINENT, RESET_FILTER, ORDER_ALPHABETIC, ORDER_POPULATION, SEARCH, LOAD_ACTIVITIES, FILTER_ACTIVITY} from "./action-types"
+import {LOAD_CONTENT, FILTER_CONTINENT, RESET_FILTER, ORDER_ALPHABETIC, ORDER_POPULATION, SEARCH, LOAD_ACTIVITIES, FILTER_ACTIVITY, LOADING, DETAIL, DELETE_ACTIVITY} from "./action-types"
 
 const initialState={
     myCountries:[],
     allCountries:[],
     myActivities:[],
-    allActivities:[]
+    allActivities:[],
+    loading:false
 }
 
 const rootReducer=(state= initialState, action)=>{
@@ -16,6 +17,16 @@ const rootReducer=(state= initialState, action)=>{
             allCountries: action.payload,
             myCountries:[]
         };
+        case LOADING: 
+        return {
+            ...state,
+            loading: action.payload,
+        };
+        case DETAIL:
+            return{
+                ...state,
+                myCountries: action.payload
+            }
         case LOAD_ACTIVITIES:
             return{
                 ...state,
@@ -38,6 +49,11 @@ const rootReducer=(state= initialState, action)=>{
                         myCountries: filteredActivities,
                         };
                     }
+        case DELETE_ACTIVITY:
+            return{
+                ...state,
+                allActivities: action.payload
+            }
         case RESET_FILTER:
             return{
                 ...state,

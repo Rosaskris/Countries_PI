@@ -27,15 +27,15 @@
 }
 
 .titleLanding1{
-    margin-top: 10em;
+    margin-top: 8em;
     width: 40em;
     height: 19em;
-    background-image: linear-gradient(163deg, #e07eacd2 0%, #720745cc 100%);
+    background-image: linear-gradient(163deg, #398699d2 0%, #034463cc 100%);
     border-radius: 20px;
     transition: all .3s;
 }
 .titleLanding1:hover{
-    box-shadow: 0px 0px 30px 1px rgba(255, 0, 149, 0.3);
+    box-shadow: 0px 0px 30px 1px rgba(14, 112, 151, 0.3);
 }
 .welcome{
     display: flex;
@@ -66,7 +66,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to right, #b60fd8a1 0%, #42083f73 100%);
+    background-image: linear-gradient(to right, #479de4a1 0%, #101e7073 100%);
     transition: .5s ease;
     display: block;
     z-index: -1;
