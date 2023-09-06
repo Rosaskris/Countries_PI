@@ -125,28 +125,28 @@ export default function Form(props){
         <div className='inputForm'> 
             <label>
             Name: 
-            <input type="text" value={formData.name} name='name' onChange={handleChange} />
+            <input type="text" value={formData.name} name='name' onChange={handleChange} className='inputActivity' />
             {errors.name && <p className='Errors'>{errors.name}</p>}
             </label>
         </div>
         <div className='inputForm'> 
             <label>
             Difficulty: 
-            <input type="number" value={formData.difficulty} name='difficulty' onChange={handleChange} />
+            <input type="number" value={formData.difficulty} name='difficulty' onChange={handleChange} className='inputActivity'/>
             </label>
             {errors.difficulty && <p className='Errors'>{errors.difficulty}</p>}
         </div>
         <div className='inputForm'>
             <label>
             Duration (hours): 
-            <input type="number" value={formData.duration} name='duration' onChange={handleChange} />
+            <input type="number" value={formData.duration} name='duration' onChange={handleChange} className='inputActivity'/>
             {errors.duration && <p className='Errors'>{errors.duration}</p>}
             </label>
         </div>   
         <div className='inputForm'>
             <label>
             Season: 
-            <select value={formData.season} name='season' onChange={handleChange}>
+            <select value={formData.season} name='season' onChange={handleChange} className='inputActivity'>
                 <option value="Summer">Summer</option>
                 <option value="Fall">Fall</option>
                 <option value="Winter">Winter</option>
@@ -158,7 +158,7 @@ export default function Form(props){
         <div className='inputForm'>
         <label>
             Countries: 
-            <select defaultValue={'None'} name='selectedCountries' onChange={handleCountryChange}>
+            <select defaultValue={'None'} name='selectedCountries' onChange={handleCountryChange} className='inputActivity'>
             {/* {console.log(formData.selectedCountries)} */}
             <option value='null'>Select Country</option>
             {formData.countries.map(country => (

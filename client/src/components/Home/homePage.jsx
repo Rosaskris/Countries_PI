@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation } from '../Redux/action-types';
 
-const Home=({countries, onPageChange, currentPage})=>{
+const Home=({countries, onPageChange, currentPage, backHome})=>{
     const countriesPerPage = 10;
     
     const indexOfLastCountry = currentPage * countriesPerPage;
@@ -12,6 +12,7 @@ const Home=({countries, onPageChange, currentPage})=>{
     const dispatch= useDispatch();
     let myCountries = useSelector(state => state.myCountries);
     let allActivities = useSelector(state => state.allActivities);
+    const error= useSelector(state=> state.error)
     const loading= useSelector(state=>state.loading)
     const[aux, setAux]=useState(false)
     // const [currentCountries, setCurrentCountries]=useState(countries.slice(indexOfFirstCountry, indexOfLastCountry))
@@ -43,7 +44,7 @@ const Home=({countries, onPageChange, currentPage})=>{
             return(
                 <div className='loading'><h1>LOADING...</h1></div>
             )
-        }else{
+        }else if(countries.length){
         const currentCountries = myCountries.length
         ? myCountries.slice(indexOfFirstCountry, indexOfLastCountry)
         : countries.slice(indexOfFirstCountry, indexOfLastCountry);
@@ -54,8 +55,23 @@ const Home=({countries, onPageChange, currentPage})=>{
 
     
         return(
+        <div className='home1'>
+            <div className='pages'>
+            <button className='buttonPages'disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}>
+                Previous
+            </button>
+            {Array.from({ length: totalPages }, (_, index) => (
+                <button className='numberPages' key={index + 1} onClick={() => onPageChange(index + 1)}>
+                {index + 1}
+                </button>
+            ))}
+            <button className='buttonPages' disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
+                Next
+            </button>
+            </div>
         <div className='homePage'>
             <div className='filters'> 
+            <h4>Filter</h4>
             <select  name="Filter" onChange={handleFilter} className='filter'>
                 <option value="Null" >Filter by contient</option>
                 <option value="North America" >North America</option>
@@ -72,14 +88,12 @@ const Home=({countries, onPageChange, currentPage})=>{
             <option value="Null" >Order A-Z</option>   
             <option value="A">A-Z</option>
             <option value="D">Z-A</option>
-            <option value="All" >Show all</option>
             </select>
 
             <select name="OrderNum" id="Population Order"  onChange={handleOrderPopulation} className='filter'>
             <option value="Null" >Order by population</option> 
             <option value="D">More populated first</option>
             <option value="A">Less populated first</option>
-            <option value="All" >Show all</option>
             </select>
 
             <select name="FilterActivities" id="Activities Order" onChange={handleFilterActivities} className='filter'>
@@ -87,32 +101,26 @@ const Home=({countries, onPageChange, currentPage})=>{
             {allActivities.map(activity=>{
                 return <option key={activity.id} value={activity.name}>{activity.name}</option>
             })}
-            <option value="All" >Show all</option>
             </select>
+            <button onClick={backHome} className='clearFilterButton'> Clear filters </button>
             </div>
-            
-        <div className='countries'>
+
+            <div className='home2'>
+            <div className='countries'>
             {(currentCountries.map((e) => (
             <Card key={e.id} flag={e.flags} name={e.commonName} id={e.id} continent={e.continents} />
             )))}
             {console.log(currentCountries)}
         </div>
-            <div className='pages'>
-            <button className='buttonPages'disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}>
-                Previous
-            </button>
-            {Array.from({ length: totalPages }, (_, index) => (
-                <button className='numberPages' key={index + 1} onClick={() => onPageChange(index + 1)}>
-                {index + 1}
-                </button>
-            ))}
-            <button className='buttonPages' disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
-                Next
-            </button>
+            </div>
+
             </div>
             </div>
-            
-        )}
+        )} else{
+            return(
+                <div className='serverOff'><h1>Something went wrong!</h1></div>
+            )
+        }
     
 
 }

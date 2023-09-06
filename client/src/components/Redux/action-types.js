@@ -12,6 +12,12 @@ const FILTER_ACTIVITY= 'FILTER_ACTIVITY'
 const LOADING= 'LOADING'
 const DETAIL= 'DETAIL'
 const DELETE_ACTIVITY= 'DELETE_ACTIVITY,'
+const ERROR= 'ERROR'
+
+const serverOff=(error)=>({
+    type: ERROR,
+    payload:error
+})
 
 const setLoading = (status) => ({
     type: LOADING,
@@ -148,6 +154,6 @@ const orderPopulation=(order)=>{
 
 
 export{
-        filterByContinents, loadContent,resetFilter, orderAlfabetico, orderPopulation, searchCountry,loadActivities, filterActivities,setLoading, setDetail, deleteActivity,
-         LOADING,FILTER_ACTIVITY, LOAD_ACTIVITIES, SEARCH, ORDER_ALPHABETIC, ORDER_POPULATION, RESET_FILTER, FILTER_CONTINENT, LOAD_CONTENT, DETAIL, DELETE_ACTIVITY
+        filterByContinents, loadContent,resetFilter, orderAlfabetico, orderPopulation, searchCountry,loadActivities, filterActivities,setLoading, setDetail, deleteActivity, serverOff,
+         LOADING,FILTER_ACTIVITY, LOAD_ACTIVITIES, SEARCH, ORDER_ALPHABETIC, ORDER_POPULATION, RESET_FILTER, FILTER_CONTINENT, LOAD_CONTENT, DETAIL, DELETE_ACTIVITY, ERROR
 }

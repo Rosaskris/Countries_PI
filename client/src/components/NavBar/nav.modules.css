@@ -7,7 +7,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    background: rgb(46, 43, 46); 
+    background: rgba(87, 87, 87, 0.918); 
     color: whitesmoke;
     padding: 0.2em 0;
     z-index:1000;
@@ -15,11 +15,18 @@
     justify-content: space-between;
 }
 .titleNav{
+    display: flex;
+    height: 3em;
+}
+.titleNav h1{
     margin-left: 1em;
     display: flex;
     font-size: 1.2em;
-    color: aqua;
+    color: rgb(217, 223, 223);
     font-family: monospace;
+}
+.titleNav img{
+    height: 100%;
 }
 
 .buttonsNav{
@@ -29,25 +36,105 @@
     justify-content: space-evenly;
 }
 
-.buttonNav{
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-    background-color: rgb(23, 89, 94);
-    color: white;
-    border-radius: 0.5em;
+.homeIcon{
+    width: 2em;
 }
 
-.searchBar{
+.searchBar {
     display: flex;
-    align-content: space-around;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin-top: 0.8em;
-    margin-left: 40em;
-}
+    align-items: center;
+    flex-direction: row;
+    max-width: 14em;
+    width: fit-content;
+    height: fit-content;
+    background-color: #dfe2e7;
+    border-radius: 0.8em;
+    overflow: hidden;
+  }
+  
+  .search_icon {
+    height: 1em;
+    padding: 0 0.5em 0 0.8em;
+    fill: #abb2bf;
+  }
+  
+  .input {
+    background-color: transparent;
+    color: #000000;
+    outline: none;
+    width: 100%;
+    border: 0;
+    padding: 0.5em 1.5em 0.5em 0;
+    font-size: 1em;
+  }
 
-.searchButton{
-    background-color: rgb(27, 102, 107);
+/* Style the dropdown button */
+.dropbtn {
+    background-color:  rgba(255, 255, 255, 0.281);
     color: white;
     border-radius: 0.5em;
+    cursor: pointer;
+    float: right;
+    margin-right: 2em;
+    margin-top: 0.5em;
 }
+
+.menuIcon{
+    width: 1.7em;
+    height: 1.7em;
+}
+
+/* Style the dropdown container (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    color: black;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top: 3em;
+    margin-right: 1.8em;
+    z-index: 1;
+    right: 0;
+    border-radius: 1em;
+}
+
+/* Style the links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 1em;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color on hover */
+.dropdown-content a:hover {
+    background-color: #214157;
+    color: white;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Style the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #43484b;
+    border-radius: 0.5em;
+}
+
+.buttonHome{
+    position:fixed;
+    right: 1em;
+    bottom: 1em;
+    z-index: 5;
+}
+
+    .buttonNav{
+        background-color: rgba(140, 154, 155, 0.37);
+        color: white;
+        border-radius: 0.5em;
+        cursor: pointer;
+        padding: 0.5em;
+    }

@@ -1,15 +1,21 @@
-import {LOAD_CONTENT, FILTER_CONTINENT, RESET_FILTER, ORDER_ALPHABETIC, ORDER_POPULATION, SEARCH, LOAD_ACTIVITIES, FILTER_ACTIVITY, LOADING, DETAIL, DELETE_ACTIVITY} from "./action-types"
+import {LOAD_CONTENT, FILTER_CONTINENT, RESET_FILTER, ORDER_ALPHABETIC, ORDER_POPULATION, SEARCH, LOAD_ACTIVITIES, FILTER_ACTIVITY, LOADING, DETAIL, DELETE_ACTIVITY, ERROR} from "./action-types"
 
 const initialState={
     myCountries:[],
     allCountries:[],
     myActivities:[],
     allActivities:[],
-    loading:false
+    loading:false,
+    error: []
 }
 
 const rootReducer=(state= initialState, action)=>{
     switch (action.type) {
+        case ERROR:
+            return{
+                ...state,
+                error: state.error.push('Error')
+            }
 
         case LOAD_CONTENT:
         return {

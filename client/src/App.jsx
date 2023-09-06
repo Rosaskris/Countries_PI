@@ -7,9 +7,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import Detail from './components/Detail/detailPage'
 import { useDispatch, useSelector } from 'react-redux'
-import { SEARCH, loadActivities, loadContent, resetFilter, searchCountry, setLoading } from './components/Redux/action-types'
+import { SEARCH, loadActivities, loadContent, resetFilter, searchCountry, setLoading, serverOff } from './components/Redux/action-types'
 import Form from './components/Form/formPage'
 import Activity from './components/Activities/activities'
+import Error from './components/Error/error'
+import About from './components/About/about'
 
 function App() {
   const loading= useSelector(state=>state.loading)
@@ -24,11 +26,12 @@ function App() {
       dispatch(setLoading(true))
       axios.get('http://localhost:3001/myCountries/countries')
       .then(response => {
-          setCountries(response.data);
-          dispatch(setLoading(false))
+            setCountries(response.data);
+            dispatch(setLoading(false))
       })
       .catch(error => {
           console.error('Error fetching countries:', error);
+          dispatch(serverOff(error))
           dispatch(setLoading(false))
       });
       }, []);
@@ -101,10 +104,12 @@ const onSearch = async (name) => {
       {location.pathname !=='/' && <Nav search={onSearch} backHome={backHome}/>}
       <Routes>
       <Route path='/' element={<Landing/>}/>
-      <Route path='/home' element={<Home countries={countries} onPageChange={handlePageChange} currentPage={currentPage}/>}/>
+      <Route path='/home' element={<Home countries={countries} onPageChange={handlePageChange} currentPage={currentPage} backHome={backHome}/>}/>
       <Route path='/detail/:id' element={<Detail/>}/>
       <Route path='/form' element={<Form/>}/>
       <Route path='/activities' element={<Activity/>}/>
+      <Route path='/about' element={<About/>}/>
+      <Route path='*' element={<Error/>}/>
       </Routes>
     </div>
   )

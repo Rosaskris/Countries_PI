@@ -1,17 +1,19 @@
 .formBox{
-    font-family: monospace;
     display: flex;
     justify-content: space-between;
     align-self: center;
-    background-color: rgb(223, 217, 217);
-    padding: 3em;
+    background-color: rgba(133, 132, 132, 0.842);
+    padding: 1em;
     margin-top: 5em;
-    border-radius: 2em;
+    border-radius: .5em;
     border-color: rgb(41, 158, 167);
-    border-style:groove;
-    color: black;
+    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+    0 0  0 1px rgb(41, 158, 167),
+    0.3em 0.3em 1em rgba(0,0,0,0.3);
+    color: rgb(250, 250, 250);
+    font-size: 1em;
     height: 30em;
-    max-width: 65%;
+    max-width: 60%;
     margin-left: 15em;
 }
 .form{
@@ -20,7 +22,7 @@
     flex-direction: column;
     align-items: flex-start;
     height: 40em;
-    width: 25em;
+    width: 20em;
 }
 
 .countryContainer{
@@ -29,10 +31,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background-color: rgb(41, 158, 167);
+    background-color: rgba(41, 159, 167, 0.753);
     border-radius: 1em;
     height: 20em;
-    width: 40em;
+    width: 30em;
 }
 
 .noCountries{
@@ -40,11 +42,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(41, 158, 167);
+    background-color: rgba(41, 159, 167, 0.795);
     height: 5em;
     border-radius: 1em;
     height: 20em;
-    width: 40em;
+    width: 30em;
 }
 
 .buttonSubmit{
@@ -52,8 +54,9 @@
 }
 
 .submitButton{
-    background-color: rgb(41, 158, 167);
-    color: white;
+    padding: 1em;
+    background-color: rgba(41, 159, 167, 0.459);
+    color: rgb(12, 12, 12);
 }
 
 .flagSelected{
@@ -67,6 +70,11 @@
 }
 
 .Errors{
-    color: rgb(110, 5, 19);
+    color: rgb(238, 0, 32);
     font-size: smaller;
+}
+
+.inputActivity{
+    border-radius: 1em;
+    margin-left: 0.5em;
 }

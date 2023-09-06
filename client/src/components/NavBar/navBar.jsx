@@ -1,32 +1,41 @@
 import  './nav.modules.css'
 import SearchBar from './searchBar'
 import { Link } from 'react-router-dom';
+import globe from './globeicon.png'
+import home from './homeIcon.png'
+import menu from './menuIcon.png'
 
 
 export default function Nav({search,backHome}){
     return(
-        <nav className='nav'> 
-        <div><h1 className='titleNav'>CODE WORLD</h1></div>
         <div>
-        <SearchBar onSearch={search}/>
+        <nav className='nav'> 
+        <div className='titleNav'>
+            <img src={globe} alt="globe" />
+            <h1 >CODE WORLD</h1>
         </div>
         <div className='buttonsNav'>
+        <SearchBar onSearch={search}/>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img src={menu} alt="menu" className='menuIcon' />
+            </button>
+            <div class="dropdown-content">
+                <Link to="/form">Create activity</Link>
+                <Link to="/activities">View activities</Link>
+                <Link to="/about">About</Link>
+            </div>
+        </div>
+
+        </nav>
+        <div className='buttonHome'>
         <Link to={'/home'}>
             <button  className='buttonNav' onClick={backHome}>
-                Home
+                <img className='homeIcon' src={home} alt="homeIcon" />
             </button>
-            </Link> 
-            <Link to={'/form'}>
-            <button className='buttonNav'>
-                Create activity
-            </button>
-            </Link> 
-            <Link to={'/activities'}>
-            <button className='buttonNav'>
-                View activities
-            </button>
-            </Link> 
+            </Link>
         </div>
-        </nav>
+        </div>
     )
 }

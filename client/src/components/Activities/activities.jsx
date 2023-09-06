@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import './activities.modules.css'
 import { deleteActivity, loadActivities } from '../Redux/action-types'
+import trash from './trashIcon.png'
 
 export default function Activity(props){
     const dispatch= useDispatch()
@@ -32,7 +33,9 @@ export default function Activity(props){
                             <li key={country.id}>{country.commonName}</li>
                         )
                     })}
-                    <button className='deleteActivity' onClick={()=>{handleDelete(activity.id)}}>Delete</button>
+                    <div className='buttonDelete'><button className='deleteActivity' onClick={()=>{handleDelete(activity.id)}}>
+                        <img src={trash} alt="Delete" className='trashIcon'/>
+                        </button></div>
                     </div>} 
                     </div>
                 </div>
