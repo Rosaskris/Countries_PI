@@ -6,17 +6,18 @@ const ActivityModel= require('./models/Activity')
 const fs = require('fs');
 const path = require('path');
 const {
-  DB_USER, DB_PASSWORD, DB_HOST,
+  DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY,
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/countries`, { 
-  dialect: 'postgres',
-  dialectOptions: {
-  charset: 'utf8mb4',
-},
+const sequelize = new Sequelize(DB_DEPLOY, { 
   logging: false, 
   native: false, 
 });
+
+// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/countries`, { 
+//   logging: false, 
+//   native: false, 
+// });
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
