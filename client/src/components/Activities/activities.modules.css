@@ -5,7 +5,7 @@
     display: flex;
     justify-items: center;
     align-items: center;
-    font-size: 1em;
+    font-size: .8em;
 }
 .title{
     color: rgb(255, 255, 255);
@@ -18,14 +18,18 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .activity{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1em;
-    height: 20em;
+    justify-content: center;
+    margin: 0.5em;
+    height: 50%;
     width: 20em;
     background-color: rgba(34, 33, 33, 0.76);
     border-radius: 1em;
@@ -38,18 +42,20 @@
 
 .activityInfo{
     display: flex;
-    padding: 1em;
+    padding: .2em;
     flex-wrap: wrap;
     flex-direction: column;
 }
 
 .deleteActivity{
-    background-color: rgba(41, 159, 167, 0);
+    background-color: transparent;
+    border: none;
+    width: 50%;
     border-radius: 5em;
+    cursor: pointer;
 }
 
 .buttonDelete{
-margin-top: 1em;
 display: flex;
 justify-content: center;
 }

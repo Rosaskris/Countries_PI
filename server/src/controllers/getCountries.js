@@ -5,7 +5,7 @@ const getCountries= async (req,res)=>{
         const allCountries= await Country.findAll({
             include:{
                 model: Activity,
-                attributes: ["name"],
+                attributes: ["name", "difficulty", "duration", "season"],
                 through:{
                     attributes:[]
                 }

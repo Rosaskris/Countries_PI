@@ -41,9 +41,15 @@ const rootReducer=(state= initialState, action)=>{
             }
         case FILTER_ACTIVITY:
                 if(action.payload==='All' || action.payload==='Null'){
+                    const activities= state.allCountries.filter(country =>
+                        country.Activities.some(activity =>
+                            state.allActivities.some(allActivity =>
+                                activity.name.includes(allActivity.name)
+                            )
+                        ));
                     return {
                     ...state,
-                    myCountries: state.allCountries,
+                    myCountries: activities
                     };
                 } else{
                         const selectedActivity = action.payload;

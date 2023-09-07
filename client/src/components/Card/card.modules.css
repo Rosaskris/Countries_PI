@@ -43,3 +43,51 @@ a:-webkit-any-link{
 .card:hover{
     transform: scale(1.1) ;
 }
+
+@media (max-width: 767px) {
+    .card{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 0.5em;
+        margin-bottom: 2em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        font-size: 0.2em;
+        width: 30%;
+        height: 30em;
+        background-color: rgb(87, 87, 87);
+        border-radius: 10em;
+        color: whitesmoke;
+        transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.432),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.651);
+    }
+    
+    
+    .cardName{
+        color: whitesmoke;
+        text-decoration-line: none;
+        
+    }
+    
+    a:-webkit-any-link{
+        text-decoration: none;
+    }
+    .flagContainer {
+        width: 100%;
+        height: 100%; 
+        overflow: hidden; 
+    }
+    
+    .flag {
+        width: 100%;
+        height: 100%; 
+        object-fit: cover; 
+    }
+    
+    .card:hover{
+        transform: scale(1.1) ;
+    }
+}

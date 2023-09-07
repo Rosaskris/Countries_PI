@@ -33,10 +33,10 @@ export default function Activity(props){
                             <li key={country.id}>{country.commonName}</li>
                         )
                     })}
+                    </div>} 
                     <div className='buttonDelete'><button className='deleteActivity' onClick={()=>{handleDelete(activity.id)}}>
                         <img src={trash} alt="Delete" className='trashIcon'/>
                         </button></div>
-                    </div>} 
                     </div>
                 </div>
             )

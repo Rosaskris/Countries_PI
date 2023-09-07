@@ -84,6 +84,14 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
                 <option value="All" >Show all</option>
             </select>
 
+
+            <select name="FilterActivities" id="Activities Order" onChange={handleFilterActivities} className='filter'>
+            <option value="Null" >Filter by Activities</option> 
+            {allActivities.map(activity=>{
+                return <option key={activity.id} value={activity.name}>{activity.name}</option>
+            })}
+            <option value="All">Show All</option>
+            </select>
             <select name="Order" id="Alphabetic Order"  onChange={handleOrderAZ} className='filter'>
             <option value="Null" >Order A-Z</option>   
             <option value="A">A-Z</option>
@@ -94,13 +102,6 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
             <option value="Null" >Order by population</option> 
             <option value="D">More populated first</option>
             <option value="A">Less populated first</option>
-            </select>
-
-            <select name="FilterActivities" id="Activities Order" onChange={handleFilterActivities} className='filter'>
-            <option value="Null" >Filter by Activities</option> 
-            {allActivities.map(activity=>{
-                return <option key={activity.id} value={activity.name}>{activity.name}</option>
-            })}
             </select>
             <button onClick={backHome} className='clearFilterButton'> Clear filters </button>
             </div>

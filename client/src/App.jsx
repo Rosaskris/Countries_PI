@@ -24,6 +24,7 @@ function App() {
   //initialRender
     useEffect(() => {
       dispatch(setLoading(true))
+      dispatch(loadActivities())
       axios.get('http://localhost:3001/myCountries/countries')
       .then(response => {
             setCountries(response.data);

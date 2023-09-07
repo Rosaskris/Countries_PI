@@ -68,7 +68,7 @@
     font-size: 1em;
   }
 
-/* Style the dropdown button */
+
 .dropbtn {
     background-color:  rgba(255, 255, 255, 0.281);
     color: white;
@@ -84,7 +84,6 @@
     height: 1.7em;
 }
 
-/* Style the dropdown container (hidden by default) */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -99,7 +98,6 @@
     border-radius: 1em;
 }
 
-/* Style the links inside the dropdown */
 .dropdown-content a {
     color: black;
     padding: 1em;
@@ -107,18 +105,15 @@
     display: block;
 }
 
-/* Change color on hover */
 .dropdown-content a:hover {
     background-color: #214157;
     color: white;
 }
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {
     display: block;
 }
 
-/* Style the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #43484b;
     border-radius: 0.5em;
@@ -137,4 +132,14 @@
         border-radius: 0.5em;
         cursor: pointer;
         padding: 0.5em;
+    }
+
+    @media (max-width: 767px) {
+        .titleNav h1{
+            margin-left: 1em;
+            display: flex;
+            font-size: 1em;
+            color: rgb(217, 223, 223);
+            font-family: monospace;
+        }
     }

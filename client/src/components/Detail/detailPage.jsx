@@ -29,7 +29,7 @@ export default function Detail(props){
         <div className='details'>
             <div className='countryName'>
             {country.commonName && <h2>{country.commonName}</h2>}
-            {country.officialName && <h2>Official Name: {country.officialName}</h2>}
+            {country.officialName && <h3>Official Name: {country.officialName}</h3>}
             {country.flags && <img src={country.flags} alt="flag" />}
             {country.maps &&<a href={country.maps} target="_blank" rel="noopener noreferrer">Click to view map</a>}
             </div>
@@ -44,10 +44,11 @@ export default function Detail(props){
             country.Activities.length?
             <div>
                 <h3>What to do here:</h3>
-                country.Activities.length ?
                 <ul>
                 {country.Activities.map(activity => (
-                <li key={activity.id}>{activity.name}</li>
+                <div>
+                    <li key={activity.id}>{activity.name}</li>
+                </div>
                 ))}
                 </ul>
             </div> :

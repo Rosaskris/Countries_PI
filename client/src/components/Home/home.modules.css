@@ -122,3 +122,140 @@
     border: none;
     font-size: 1em;
 }
+
+@media (max-width: 767px) {
+    .serverOff{
+        margin-top: 2em;
+        display: flex;
+        justify-content: center;
+        background-color: rgba(161, 158, 158, 0.5);
+    }
+    
+    .homePage{
+        margin-top: -7em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    
+    }
+    .loading{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        margin-top: 5em;
+        color: rgb(41, 158, 167);
+        font-family: monospace;
+    }
+
+    .filters h4{
+        display: none;
+    }
+    
+    .filters{
+        z-index: 2;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin-right: 3.2em;
+        background-color: rgba(245, 245, 220, 0.274);
+        padding: 0.2em;
+        border-radius: 1em;
+        box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+        0 0  0 1px rgb(41, 158, 167),
+        0.3em 0.3em 1em rgba(0,0,0,0.3);
+    }
+    .filter{
+        padding: 1em;
+        background-color: rgb(23, 71, 75);
+        justify-content: center;
+        color: white;
+        border-radius: 0.5em;
+        margin-bottom: 0.5em;
+        transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+        0 0  0 0.5px rgb(7, 7, 7),
+        0.3em 0.3em 1em rgba(0,0,0,0.3);
+    }
+    .clearFilterButton{
+        margin-left: 1em;
+        background-color: rgb(168, 168, 168);
+        color: rgb(238, 238, 238);
+        border-radius: 0.5em;
+        padding: 0.5em;
+        transition: border-radius 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.432),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.651);
+    }
+    
+    .homeTitle{
+        margin-top: 3em;
+    }
+    
+    .countries{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-self: center;
+        justify-content: center;
+        margin:1em;
+        width: 20em;
+        height: 50%;
+        margin-top: 10em;
+        background-color: rgba(245, 245, 220, 0.274);
+        border-radius: 1em;
+        border-color: black;
+        padding: 1em;
+        box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
+        0 0  0 1px rgb(41, 158, 167),
+        0.3em 0.3em 1em rgba(0,0,0,0.3);
+    }
+    .home2{
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -12em;
+        align-self: center;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .home1{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1em;
+    }
+    
+    .pages{
+        display: flex;
+        margin-top: 4em;
+        justify-content: center;
+        z-index: 2
+    }
+    
+    .buttonPages{
+        background-color: rgb(24, 100, 105);
+        color: white;
+        border-radius: 0.5em;
+        border: none;
+        font-size: 1em;
+    }
+    .buttonPages:disabled{
+        background-color: rgba(35, 42, 43, 0.411);
+        color: rgb(109, 109, 109);
+        border-radius: 0.5em;
+        border: none;
+    }
+    
+    .numberPages{
+        display: none;
+        background-color: rgb(219, 219, 219);
+        color: rgb(17, 17, 17);
+        border-radius: 0.5em;
+        border: none;
+        font-size: 0.5em;
+    }
+}
