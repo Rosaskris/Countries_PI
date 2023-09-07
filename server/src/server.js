@@ -18,6 +18,6 @@ server.use((req, res, next) => {
     next();
 });
 
-server.use('/api', router);
+server.use('/', router);
 
 module.exports = server;

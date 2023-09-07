@@ -24,11 +24,11 @@ function App() {
   //initialRender
     useEffect(() => {
       dispatch(setLoading(true))
-      dispatch(loadActivities())
-      axios.get('/api/countries')
+      axios.get('/countries')
       .then(response => {
-            setCountries(response.data);
-            dispatch(setLoading(false))
+        setCountries(response.data);
+        dispatch(loadActivities())
+        dispatch(setLoading(false))
       })
       .catch(error => {
           console.error('Error fetching countries:', error);
@@ -61,7 +61,7 @@ useEffect(() => {
 //reset seCountries
 const backHome = () => {
     dispatch(setLoading(true))
-    axios.get('/api/countries')
+    axios.get('/countries')
     .then(response => {
         dispatch(resetFilter())
         setCountries(response.data);
