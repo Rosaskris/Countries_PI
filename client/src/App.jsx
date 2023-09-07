@@ -25,7 +25,7 @@ function App() {
     useEffect(() => {
       dispatch(setLoading(true))
       dispatch(loadActivities())
-      axios.get('http://localhost:3001/myCountries/countries')
+      axios.get('https://countries-back-nl4x.onrender.com/myCountries/countries')
       .then(response => {
             setCountries(response.data);
             dispatch(setLoading(false))
