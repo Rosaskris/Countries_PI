@@ -25,7 +25,7 @@ function App() {
     useEffect(() => {
       dispatch(setLoading(true))
       dispatch(loadActivities())
-      axios.get('https://countries-back-nl4x.onrender.com/myCountries/countries')
+      axios.get('/api/countries')
       .then(response => {
             setCountries(response.data);
             dispatch(setLoading(false))
@@ -61,7 +61,7 @@ useEffect(() => {
 //reset seCountries
 const backHome = () => {
     dispatch(setLoading(true))
-    axios.get('https://countries-back-nl4x.onrender.com/myCountries/countries')
+    axios.get('/api/countries')
     .then(response => {
         dispatch(resetFilter())
         setCountries(response.data);

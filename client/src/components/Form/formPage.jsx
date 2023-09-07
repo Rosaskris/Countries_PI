@@ -26,7 +26,7 @@ export default function Form(props){
     })
 
     useEffect(() => {
-        axios.get('https://countries-back-nl4x.onrender.com/myCountries/countries')
+        axios.get('/api/countries')
         .then(response => {
             setFormData({
                 ...formData,
@@ -94,7 +94,7 @@ export default function Form(props){
             countries:selectedCountries
             };
             console.log(newActivity)
-            axios.post('https://countries-back-nl4x.onrender.com/myCountries/activities', newActivity)
+            axios.post('/api/activities', newActivity)
             .then(response => {
                 window.alert('Activity created!');
                 setFormData({

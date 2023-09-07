@@ -28,7 +28,7 @@ const loadContent = () => {
     return async (dispatch) => {
         try {
             dispatch(setLoading(true)); // Set loading status to true
-            const { data } = await axios.get('https://countries-back-nl4x.onrender.com/myCountries/countries');
+            const { data } = await axios.get('/api//countries');
             console.log('hola', data)
             dispatch({
                 type: LOAD_CONTENT,
@@ -46,7 +46,7 @@ const setDetail=(id)=>{
     return async(dispatch)=>{
         try {
             dispatch(setLoading(true))
-            const {data}= await axios.get(`https://countries-back-nl4x.onrender.com/myCountries/country/${id}`)
+            const {data}= await axios.get(`/api/country/${id}`)
             dispatch({
                 type: DETAIL,
                 payload: data
@@ -63,7 +63,7 @@ const loadActivities=()=>{
     return async (dispatch) => {
         try{
         dispatch(setLoading(true))
-        const {data}= await axios.get('https://countries-back-nl4x.onrender.com/myCountries/activities')
+        const {data}= await axios.get('/api/activities')
                 dispatch({
                     type: LOAD_ACTIVITIES,
                     payload: data,
@@ -88,7 +88,7 @@ const deleteActivity=(id)=>{
     return async (dispatch)=>{
         try {
             dispatch(setLoading(true))
-            const {data}= await axios.delete(`https://countries-back-nl4x.onrender.com/myCountries/activities/${id}`)
+            const {data}= await axios.delete(`/api/activities/${id}`)
             dispatch({
                 type:DELETE_ACTIVITY,
                 payload: data
@@ -105,7 +105,7 @@ const searchCountry=(name)=>{
     return async (dispatch) => {
         try{
             dispatch(setLoading(true))
-            const {data}= await axios.get(`https://countries-back-nl4x.onrender.com/myCountries/country?name=${name}`)
+            const {data}= await axios.get(`/api/country?name=${name}`)
             if(!data.length){
                 window.alert('Are you sure about that name?')
             } else{
