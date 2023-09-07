@@ -5,6 +5,8 @@ const cors = require("cors");
 
 const server = express();
 
+server.name = 'API';
+
 server.use(morgan("dev"));
 server.use(express.json());
 server.use(cors());
@@ -16,6 +18,6 @@ server.use((req, res, next) => {
     next();
 });
 
-server.use("/myCountries", router);
+server.use('/api', router);
 
 module.exports = server;
