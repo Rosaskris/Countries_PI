@@ -12,6 +12,11 @@ const {
 const sequelize = new Sequelize(DB_DEPLOY, { 
   logging: false, 
   native: false, 
+  dialectOptions:{
+    ssl:{
+      require:true
+    }
+  }
 });
 
 // const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:5432/countries`, { 
