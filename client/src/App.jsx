@@ -61,7 +61,7 @@ useEffect(() => {
 //reset seCountries
 const backHome = () => {
     dispatch(setLoading(true))
-    axios.get('http://localhost:3001/myCountries/countries')
+    axios.get('https://countries-back-nl4x.onrender.com/myCountries/countries')
     .then(response => {
         dispatch(resetFilter())
         setCountries(response.data);
