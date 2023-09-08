@@ -8,7 +8,7 @@ import menu from './menuIcon.png'
 
 export default function Nav({search,backHome}){
     return(
-        <div>
+        <div className='fullNav'>
         <nav className='nav'> 
         <div className='titleNav'>
             <img src={globe} alt="globe" />

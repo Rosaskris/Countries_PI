@@ -1,7 +1,7 @@
-// import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import './nav.modules.css'
 
 
@@ -9,12 +9,17 @@ import './nav.modules.css'
 export default function SearchBar({onSearch}) {
     const [name, setName]= useState('')
     const loading= useSelector(state=>state.loading)
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const handleChange = async (event) => {
         event.preventDefault();
         if (!loading) {
-            history.push('/');
+            if (location.pathname !== '/home') {
+                navigate('/home'); // Redirect to home view
+                await onSearch(name);
+                setName('');
+            }
+
             await onSearch(name);
             setName('');
         }

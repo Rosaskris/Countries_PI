@@ -13,6 +13,7 @@
     z-index:1000;
     display: flex;
     justify-content: space-between;
+
 }
 .titleNav{
     display: flex;
@@ -38,7 +39,10 @@
 
 .homeIcon{
     width: 2em;
+    
 }
+
+
 
 .searchBar {
     display: flex;
@@ -124,6 +128,7 @@
     right: 1em;
     bottom: 1em;
     z-index: 5;
+    margin-bottom: 3em;
 }
 
     .buttonNav{

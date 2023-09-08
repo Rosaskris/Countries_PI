@@ -12,6 +12,7 @@ import Form from './components/Form/formPage'
 import Activity from './components/Activities/activities'
 import Error from './components/Error/error'
 import About from './components/About/about'
+import Footer from './components/footer/footer'
 
 function App() {
   const loading= useSelector(state=>state.loading)
@@ -103,14 +104,15 @@ const onSearch = async (name) => {
   return (
     <div className='app'>
       {location.pathname !=='/' && <Nav search={onSearch} backHome={backHome}/>}
+      {location.pathname !== '/' && <Footer/>}
       <Routes>
       <Route path='/' element={<Landing/>}/>
+      <Route path='/about' element={<About/>}/>
       <Route path='/home' element={<Home countries={countries} onPageChange={handlePageChange} currentPage={currentPage} backHome={backHome}/>}/>
       <Route path='/detail/:id' element={<Detail/>}/>
       <Route path='/form' element={<Form/>}/>
       <Route path='/activities' element={<Activity/>}/>
-      <Route path='/about' element={<About/>}/>
-      <Route path='*' element={<Error/>}/>
+      <Route path='*' element={<Error/>}/> 
       </Routes>
     </div>
   )

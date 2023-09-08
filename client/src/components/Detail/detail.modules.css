@@ -8,6 +8,7 @@
     font-family:Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-size: 0.7em;
     margin-top: 5em;
+    margin-bottom: 8em;
     border-radius: 2em;
     width: 65em;
     background-color: rgba(223, 223, 223, 0.418);
@@ -58,6 +59,7 @@
         font-family:Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
         font-size: 0.7em;
         margin-top: 5em;
+        margin-bottom: 8em;
         border-radius: 2em;
         width: 30em;
         background-color: rgba(223, 223, 223, 0.418);
