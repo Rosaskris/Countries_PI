@@ -61,6 +61,7 @@ useEffect(() => {
 
 //reset seCountries
 const backHome = () => {
+  if (!loading) {
     dispatch(setLoading(true))
     axios.get('/countries')
     .then(response => {
@@ -71,7 +72,7 @@ const backHome = () => {
     .catch(error => {
         console.error('Error fetching countries:', error);
         dispatch(setLoading(false))
-    });
+    });}
   
 };
 

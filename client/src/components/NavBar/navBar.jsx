@@ -17,11 +17,11 @@ export default function Nav({search,backHome}){
         <div className='buttonsNav'>
         <SearchBar onSearch={search}/>
         </div>
-        <div class="dropdown">
-            <button class="dropbtn">
+        <div className="dropdown">
+            <button className="dropbtn">
                 <img src={menu} alt="menu" className='menuIcon' />
             </button>
-            <div class="dropdown-content">
+            <div className="dropdown-content">
                 <Link to="/form">Create activity</Link>
                 <Link to="/activities">View activities</Link>
                 <Link to="/about">About</Link>

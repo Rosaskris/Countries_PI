@@ -29,7 +29,6 @@ const loadContent = () => {
         try {
             dispatch(setLoading(true)); // Set loading status to true
             const { data } = await axios.get('/countries');
-            console.log('hola', data)
             dispatch({
                 type: LOAD_CONTENT,
                 payload: data,
