@@ -59,6 +59,12 @@ useEffect(() => {
     }
   }, [dispatch, location.pathname, myCountries.length])
 
+  //pages
+      const [currentPage, setCurrentPage] = useState(1);
+  
+      const handlePageChange = (newPage) => {
+          setCurrentPage(newPage);
+      };
 //reset seCountries
 const backHome = () => {
   if (!loading) {
@@ -68,6 +74,7 @@ const backHome = () => {
         dispatch(resetFilter())
         setCountries(response.data);
         dispatch(setLoading(false))
+        setCurrentPage(1)
     })
     .catch(error => {
         console.error('Error fetching countries:', error);
@@ -77,12 +84,6 @@ const backHome = () => {
 };
 
 
-//pages
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
-    };
 //searchName
 const onSearch = async (name) => {
   if (!loading) {

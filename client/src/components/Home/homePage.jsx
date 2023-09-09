@@ -135,11 +135,13 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
 
             </div>
             </div>
-        )} else{
-            return(
-                <div className='serverOff'><h1>Something went wrong!</h1></div>
-            )
-        }
+        )} //else{ 
+        //     if(!loading){
+        //         return(
+        //             <div className='serverOff'><h1>Something went wrong!</h1></div>
+        //         )
+        //     }
+        // }
     
 
 }

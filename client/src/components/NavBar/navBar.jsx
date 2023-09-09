@@ -11,7 +11,9 @@ export default function Nav({search,backHome}){
         <div className='fullNav'>
         <nav className='nav'> 
         <div className='titleNav'>
+            <Link to="/home">
             <img src={globe} alt="globe" />
+            </Link>
             <h1 >CODE WORLD</h1>
         </div>
         <div className='buttonsNav'>

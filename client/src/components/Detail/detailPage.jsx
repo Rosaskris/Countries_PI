@@ -3,22 +3,35 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setDetail, setLoading } from '../Redux/action-types';
+import { loadContent, setDetail, setLoading } from '../Redux/action-types';
 import { Link } from 'react-router-dom';
 
 
 export default function Detail(props){
     const loading=useSelector(state=>state.loading);
-    const country= useSelector(state=>state.myCountries)
+    // const country= useSelector(state=>state.myCountries)
     const dispatch = useDispatch();
     const {id}= useParams();
-    // const [country, setCountry]= useState({});
+    const [country, setCountry]= useState({});
 
     useEffect(() => {
     if(!loading){
-        dispatch(setDetail(id))
+        // dispatch(setDetail(id))
+        dispatch(setLoading(true))
+        axios.get(`/country/${id}`).then(
+            res=>{
+                const countrySelected= res.data
+                setCountry(countrySelected)
+                console.log(id, countrySelected)
+                dispatch(setLoading(false))
+            }
+        )
+        .catch( error=>{
+            console.log(error)
+            dispatch(setLoading(false))
+        })
     }
-    },[id])
+    },[id, dispatch])
 
     if(loading){
         return(

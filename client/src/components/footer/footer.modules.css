@@ -1,5 +1,5 @@
 .footer {
-    background-color: #3d3d3d;
+    background-color: #777777;
     padding: 20px;
     text-align: center;
     position: fixed;
@@ -9,6 +9,7 @@
     z-index: 2;
     margin-top: 50px;
     margin-left: -1em;
+    font-size: 0.8em;
   }
   
   .container {
@@ -20,4 +21,6 @@
   p {
     margin: 0;
   }
+  
+
   

@@ -22,7 +22,7 @@
 .cardName{
     color: whitesmoke;
     text-decoration-line: none;
-    
+    padding: 0.5em;
 }
 
 a:-webkit-any-link{
