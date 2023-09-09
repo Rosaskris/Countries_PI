@@ -114,11 +114,11 @@
     color: white;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown-content {
     display: block;
 }
 
-.dropdown:hover .dropbtn {
+.dropdown:active .dropbtn {
     background-color: #43484b;
     border-radius: 0.5em;
 }
