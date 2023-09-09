@@ -5,6 +5,14 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadContent, setDetail, setLoading } from '../Redux/action-types';
 import { Link } from 'react-router-dom';
+import continent from './continent-icon.png'
+import capital from './capital-icon.png'
+import region from './region-icon.png'
+import area from './area-icon.png'
+import population from './population-icon.png'
+import languages from './languages-icon.png'
+import activities from './activities-icon.png'
+
 
 
 export default function Detail(props){
@@ -66,14 +74,48 @@ export default function Detail(props){
             {country.maps &&<a href={country.maps} target="_blank" rel="noopener noreferrer">Click to view map</a>}
             </div>
         <div className='countryInfo'>
-            {country.continents && <h3>Continent: {country.continents}</h3>}
-            {country.capital &&<h3>Capital: {country.capital}</h3>}
-            {country.subregion &&<h3>Subregion: {country.subregion}</h3>}
-            {country.area &&<h3>Area: {country.area}m2</h3>}
-            {country.population &&<h3>Population: {country.population}</h3>}
-            {country.languages &&<h3>Languages: {country.languages}</h3>}
+            {country.continents && <div className='dataContainer'>
+                <div className='iconContainer'>
+                    <img src={continent} className='icon' alt="icon" />
+                </div> 
+                <h3>Continent: {country.continents}</h3>
+                </div>}
+            {country.capital && <div className='dataContainer'> 
+            <div className='iconContainer'>
+                    <img src={capital} className='icon' alt="icon" />
+                </div> 
+            <h3>Capital: {country.capital}</h3> 
+            </div>}
+            {country.subregion && <div className='dataContainer'> 
+            <div className='iconContainer'>
+                    <img src={region} className='icon' alt="icon" />
+                </div> 
+            <h3>Subregion: {country.subregion}</h3>
+            </div>}
+            {country.area && <div className='dataContainer'> 
+            <div className='iconContainer'>
+                    <img src={area} className='icon' alt="icon" />
+                </div> 
+            <h3>Area: {country.area}m2</h3>
+            </div>}
+            {country.population && <div className='dataContainer'>
+            <div className='iconContainer'>
+                    <img src={population} className='icon' alt="icon" />
+                </div> 
+                <h3>Population: {country.population}</h3>
+            </div>}
+            {country.languages && <div className='dataContainer'>
+            <div className='iconContainer'>
+                    <img src={languages} className='icon' alt="icon" />
+                </div>
+                <h3>Languages: {country.languages}</h3>
+                </div>}
             {country.Activities &&
             country.Activities.length?
+            <div className='dataContainer'>
+                    <div className='iconContainer'>
+                    <img src={activities} className='icon' alt="icon" />
+                </div>
             <div>
                 <h3>What to do here:</h3>
                 <ul key={country.id}>
@@ -83,13 +125,19 @@ export default function Detail(props){
                 </div>
                 ))}
                 </ul>
-            </div> :
+            </div> 
+            </div>:
+            <div className='dataContainer'>
+                <div className='iconContainer'>
+                    <img src={activities} className='icon' alt="icon" />
+                </div>
             <div>
                 <h3>What to do here:</h3>
                 <Link to={'/form'}>
                 <li>No Activties yet. Add One!</li>
                 </Link> 
 
+            </div>
             </div>
             }
             {country.id && <h3>ID: {country.id}</h3>}
