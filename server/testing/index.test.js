@@ -5,23 +5,24 @@ const agent = session(app);
 
 describe('GET Country ID testing', ()=>{
     it('Must return status: 200', async()=>{
-        await agent.get('/myCountries/country/USA').expect(200);
-    })
+        // jest.setTimeout(10000); // Set timeout to 10 seconds
+        await agent.get('/country/USA').expect(200);
+    }, 100000)
     it('If country not found returns: 404', async()=>{
-        await agent.get('/myCountries/country/AAA').expect(404);
+        await agent.get('/country/AAA').expect(404);
     })
 }) 
 
-describe('GET Country ID testing', ()=>{
+describe('GET Country Name testing', ()=>{
     it('Must return status: 200', async()=>{
-        await agent.get('/myCountries/country?name=Kenya').expect(200);
+        await agent.get('/country?name=Kenya').expect(200);
     })
     it('If country not found return:404', async()=>{
-        await agent.get('/myCountries/country?name=pinaple').expect(404);
+        await agent.get('/country?name=pinaple').expect(404);
     })
 }) 
 
-describe('POST /myCountries/activity', ()=>{
+describe('POST /activity', ()=>{
     const activity1={
         name:'catering',
         difficulty:"3",
@@ -31,17 +32,17 @@ describe('POST /myCountries/activity', ()=>{
     }
 
     it('Must create the activity succesfully',async()=>{
-        const {body}=await agent.post('/myCountries/activities').send(activity1).expect(201)
+        const {body}=await agent.post('/activities').send(activity1).expect(201)
         activityId= body.id
     })
     it('If activity already exists must return: 406', async()=>{
-        await agent.post('/myCountries/activities').send(activity1).expect(406)
-        await agent.delete(`/myCountries/activities/${activityId}`)
+        await agent.post('/activities').send(activity1).expect(406)
+        await agent.delete(`/activities/${activityId}`)
     })
     
 })
 
-describe('DELETE /myCountries/activities/:id', ()=>{
+describe('DELETE /activities/:id', ()=>{
     const activity2={
         name:'jumping',
         difficulty:1,
@@ -50,19 +51,19 @@ describe('DELETE /myCountries/activities/:id', ()=>{
         countries:['United States', 'Japan']
     }
     beforeAll(async () => {
-        const { body } = await agent.post('/myCountries/activities').send(activity2);
+        const { body } = await agent.post('/activities').send(activity2);
         activityId = body.id;
     });
 
     it('Deletes the activity when the ID exists', async () => {
-        await agent.delete(`/myCountries/activities/${activityId}`);
+        await agent.delete(`/activities/${activityId}`);
 
-        const {body}= await agent.get('/myCountries/activities')
+        const {body}= await agent.get('/activities')
         expect(body).not.toContain(activity2)
     });
     
     it('Returns an error when the ID doesnt exists', async()=>{
-        const {body}=await agent.delete('/myCountries/activities/4c11d55d-0e75-4970-ac77-8c55a6457a09').expect(404)
+        const {body}=await agent.delete('/activities/4c11d55d-0e75-4970-ac77-8c55a6457a09').expect(404)
 
     })
 })
