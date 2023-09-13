@@ -117,11 +117,24 @@
     cursor: pointer;
 }
 
+.currentPage{
+  background-color: rgb(24, 100, 105);
+  color: rgb(255, 255, 255);
+  border-radius: 0.5em;
+  border: none;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 .loading{
     margin-top: 10em;
     display: flex;
     justify-items: center;
     justify-content: center;
+}
+
+.divEmpty{
+  font-size: 0.5em;
 }
 
 .wheel-and-hamster {
@@ -522,5 +535,14 @@
         border-radius: 0.5em;
         border: none;
         font-size: 0.5em;
+    }
+
+    .currentPage{
+      background-color: rgb(197, 197, 197);
+      color: rgb(0, 0, 0);
+      border-radius: 0.5em;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
     }
 }

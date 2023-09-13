@@ -7,12 +7,12 @@ export default function Activity(props){
     const dispatch= useDispatch()
     const activities=useSelector(state=>state.allActivities)
 
-    const handleDelete = async (id) => {
+    const handleDelete =(id) => {
         try {
             dispatch(deleteActivity(id));
-            await dispatch(loadActivities());
+            dispatch(loadActivities());
         } catch (error) {
-            console.error('Error deleting and loading activities', error);
+            window.alert('Error deleting and loading activities', error);
         }
     };
     return(
@@ -29,19 +29,16 @@ export default function Activity(props){
                     <div>Difficulty: {activity.difficulty}</div> 
                     <div>Season: {activity.season}</div>
                     {activity.Countries && <div>Countries: {activity.Countries.map(country=>{
-                        return(
+                            return(
                             <li key={country.id}>{country.commonName}</li>
-                        )
-                    })}
+                        )})}
                     </div>} 
                     <div className='buttonDelete'><button className='deleteActivity' onClick={()=>{handleDelete(activity.id)}}>
                         <img src={trash} alt="Delete" className='trashIcon'/>
                         </button></div>
                     </div>
                 </div>
-            )
-        }))}
+            )}))}
         </div>
         </div>
-    )
-}
+    )}

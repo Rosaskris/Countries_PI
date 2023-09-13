@@ -1,10 +1,7 @@
-import { useLocation } from 'react-router-dom';
 import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate} from 'react-router-dom';
 import './nav.modules.css'
-
-
 
 export default function SearchBar({onSearch}) {
     const [name, setName]= useState('')
@@ -15,11 +12,10 @@ export default function SearchBar({onSearch}) {
         event.preventDefault();
         if (!loading) {
             if (location.pathname !== '/home') {
-                navigate('/home'); // Redirect to home view
+                navigate('/home');
                 await onSearch(name);
                 setName('');
             }
-
             await onSearch(name);
             setName('');
         }

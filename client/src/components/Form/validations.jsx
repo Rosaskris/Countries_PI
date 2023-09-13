@@ -1,17 +1,11 @@
 export default function validations(data){
     let errors = {};
     function validateNumbers(inputValue) {
-        // Regular expression pattern to match only numbers
         const numbersPattern = /^\d+$/;
-        
-        // Test the input value against the pattern
         return numbersPattern.test(inputValue);
         }
     function validateLetters(inputValue) {
-        // Regular expression pattern to match only letters
         const lettersPattern = /^[A-Za-z\s]+$/;
-            
-        // Test the input value against the pattern
         return lettersPattern.test(inputValue);
         }
 

@@ -44,7 +44,6 @@ export default function About(props){
                     </Link>
         </div>
         </div>
-
         </div>
     )
 }

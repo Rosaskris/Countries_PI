@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import "./landing.modules.css";
-import myImg from './backgroundimg.jpg'
 
 export default function Landing(){
-
     return(
         
     <div className="landing">
@@ -19,5 +17,4 @@ export default function Landing(){
         </div>
     </div>
     )
-    
 }

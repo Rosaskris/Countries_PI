@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
 const LOAD_CONTENT='LOAD_CONTENT'
 const RESET_FILTER='RESET_FILTER'
 const FILTER_CONTINENT= 'FILTER_CONTINENT'
@@ -13,10 +11,19 @@ const LOADING= 'LOADING'
 const DETAIL= 'DETAIL'
 const DELETE_ACTIVITY= 'DELETE_ACTIVITY,'
 const ERROR= 'ERROR'
+const SET_MY_COUNTRIES='SET_MY_COUNTRIES'
+const ALERT= 'ALERT'
+const CLEAR_ALERT= 'CLEAR_ALERT'
+const CONTINENT= 'CONTINENT'
 
-const serverOff=(error)=>({
-    type: ERROR,
-    payload:error
+const alert=(message)=>({
+    type:ALERT,
+    payload:message
+})
+
+const clearAlert=()=>({
+    type:CLEAR_ALERT,
+    payload
 })
 
 const setLoading = (status) => ({
@@ -24,39 +31,27 @@ const setLoading = (status) => ({
     payload: status,
 });
 
-const loadContent = () => {
+const setMyCountries=(data)=>({
+        type: SET_MY_COUNTRIES,
+        payload: data
+})
+
+const loadContent = (data) => {
     return async (dispatch) => {
+        dispatch(setLoading(true));
         try {
-            dispatch(setLoading(true)); // Set loading status to true
             const { data } = await axios.get('/countries');
             dispatch({
                 type: LOAD_CONTENT,
                 payload: data,
             });
-            dispatch(setLoading(false)); // Set loading status to false after fetching
+            dispatch(setLoading(false));
         } catch (err) {
-            console.error(err);
-            dispatch(setLoading(false)); // Set loading status to false on error
+            window.alert(err);
+            dispatch(setLoading(false));
         }
     };
 };
-
-const setDetail=(id)=>{
-    return async(dispatch)=>{
-        try {
-            dispatch(setLoading(true))
-            const {data}= await axios.get(`/country/${id}`)
-            dispatch({
-                type: DETAIL,
-                payload: data
-            })
-            dispatch(setLoading(false))
-        } catch (error) {
-            console.error(err);
-            dispatch(setLoading(false));
-        }
-    }
-}
 
 const loadActivities=()=>{
     return async (dispatch) => {
@@ -70,7 +65,7 @@ const loadActivities=()=>{
                 dispatch(setLoading(false))
         }
         catch (err){
-            console.log(err)
+            window.alert(err)
             dispatch(setLoading(false))
         }
     };
@@ -94,7 +89,7 @@ const deleteActivity=(id)=>{
             })
             dispatch(setLoading(false))
         } catch (error) {
-            console.error('Error deleting Activity', error);
+            window.alert('Error deleting Activity', error);
             dispatch(setLoading(false))
         }
     }
@@ -115,7 +110,7 @@ const searchCountry=(name)=>{
             }
         }
         catch (err){
-                console.log(err)
+            console.log(err)
         }finally{
             dispatch(setLoading(false))
         }
@@ -127,7 +122,6 @@ const resetFilter=()=>{
         type:RESET_FILTER
     }
 }
-
 
 const filterByContinents=(continent)=>{
     return{
@@ -150,9 +144,16 @@ const orderPopulation=(order)=>{
     }
 }
 
-
+const setContinent=(status)=>{
+    return{
+        type: CONTINENT,
+        payload: status
+    }
+}
 
 export{
-        filterByContinents, loadContent,resetFilter, orderAlfabetico, orderPopulation, searchCountry,loadActivities, filterActivities,setLoading, setDetail, deleteActivity, serverOff,
-         LOADING,FILTER_ACTIVITY, LOAD_ACTIVITIES, SEARCH, ORDER_ALPHABETIC, ORDER_POPULATION, RESET_FILTER, FILTER_CONTINENT, LOAD_CONTENT, DETAIL, DELETE_ACTIVITY, ERROR
+        filterByContinents, loadContent,resetFilter, orderAlfabetico, orderPopulation, searchCountry,loadActivities, filterActivities,
+        setLoading, deleteActivity,setMyCountries,alert,clearAlert, setContinent,
+        LOADING,FILTER_ACTIVITY, LOAD_ACTIVITIES, SEARCH, ORDER_ALPHABETIC, ORDER_POPULATION, 
+        RESET_FILTER, FILTER_CONTINENT, LOAD_CONTENT, DETAIL, DELETE_ACTIVITY, ERROR, SET_MY_COUNTRIES, ALERT,CLEAR_ALERT, CONTINENT
 }

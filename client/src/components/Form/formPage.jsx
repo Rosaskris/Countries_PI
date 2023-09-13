@@ -3,10 +3,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import validations from './validations';
 import { useDispatch } from 'react-redux';
-import { loadActivities, loadContent } from '../Redux/action-types';
+import { loadActivities, loadContent, alert, setLoading } from '../Redux/action-types';
+import Alert from '../Alerts/alerts';
 
 export default function Form(props){
     const dispatch= useDispatch()
+    const [alertError, setAlertError] = useState(false)
+
+    const closeAlert = () =>{
+        setAlertError(false)
+    }
 
     const [formData, setFormData]= useState({
         name: '',
@@ -25,6 +31,8 @@ export default function Form(props){
         selectedCountries: '',
     })
 
+const hasErrors = Object.values(errors).some(error => error);
+
     useEffect(() => {
         axios.get('/countries')
         .then(response => {
@@ -34,7 +42,7 @@ export default function Form(props){
             })
         })
         .catch(error => {
-            console.error('Error fetching countries:', error);
+            window.alert('Error fetching countries:', error);
         });
     }, []);
 
@@ -63,28 +71,27 @@ export default function Form(props){
             ...formData,
             selectedCountries:countries
         });
-      }
+    }
 
     const handleChange=(event)=>{
         setFormData({
             ...formData,
             [event.target.name]: event.target.value
-        })
-
+            })
+            
         setErrors(
             validations({
                 ...formData,
                 [event.target.name]: event.target.value
             } ,formData, errors)
-        )
-    }
-
+            )
+        }
+        
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const hasErrors = Object.values(errors).some(error => error);
         
         if(!hasErrors){
+            dispatch(setLoading(true))
             const{name,difficulty,duration,season,selectedCountries}=formData
             const newActivity = {
             name,
@@ -93,10 +100,9 @@ export default function Form(props){
             season,
             countries:selectedCountries
             };
-            console.log(newActivity)
             axios.post('/activities', newActivity)
             .then(response => {
-                window.alert('Activity created!');
+                setAlertError({title: "Done!", message: "Acitivity created succesfully!"});
                 setFormData({
                     ...formData,
                     name: '',
@@ -107,13 +113,15 @@ export default function Form(props){
                 })
                 dispatch(loadActivities())
                 dispatch(loadContent())
+                dispatch(setLoading(false))
             })
             .catch(error => {
-                window.alert(error);
+                setAlertError({title: 'Ups!', message:'Please check the data'});
+                dispatch(setLoading(false))
             });
         }
         else{
-            window.alert('Incorrect data, please check errors')
+            setAlertError({title: 'Ups!', message:'Incorrect data, please check the errors'})
         }
     };
 
@@ -121,7 +129,7 @@ export default function Form(props){
         <div className='formBox'>
         <div className='part1'>
         <form onSubmit={handleSubmit} className='form'>
-        <div><h2>Create Activity</h2></div>
+            <div><h2>Create Activity</h2></div>
         <div className='inputForm'> 
             <label>
             Name: 
@@ -159,7 +167,6 @@ export default function Form(props){
         <label>
             Countries: 
             <select defaultValue={'None'} name='selectedCountries' onChange={handleCountryChange} className='inputActivity'>
-            {/* {console.log(formData.selectedCountries)} */}
             <option value='null'>Select Country</option>
             {formData.countries.map(country => (
             <option key={country.commonName} value={country.commonName}>{country.commonName}</option>
@@ -170,19 +177,19 @@ export default function Form(props){
             {errors.selectedCountries && <p className='Errors'>{errors.selectedCountries}</p>}
         </div>
         <div className='buttonSubmit'>
-            <button type='submitButton' className='submitButton'>Create Activity</button>
+            <button type='submitButton' className='submitButton' disabled={hasErrors}>Create Activity</button>
         </div>
         </form>
         </div>
         <div className='part2'>
         <div className='selectedCountry'>
-                {formData.selectedCountries.length ?
-                    <div className='countryContainer'>
+        {formData.selectedCountries.length ?
+            <div className='countryContainer'>
                     {formData.selectedCountries.map(country => {
                         const actualCountry = formData.countries.find((c) => c.commonName === country)
                         if (actualCountry) {
-                            return (
-                                <div key={actualCountry.id} className='countriesContainer'>
+                        return (
+                        <div key={actualCountry.id} className='countriesContainer'>
                             <a href='#' onClick={handleRemoveClick} name={actualCountry.commonName} className='closeButton'>X</a>
                             <img src={actualCountry.flags} alt={`${actualCountry.id} flag`} className='flagSelected' />
                         </div>)
@@ -190,11 +197,15 @@ export default function Form(props){
                         return <div className='emptyContainer'></div>}
                         
                     })}
-            </div> : <div className='noCountries'>None</div>
-            }
-            <h4>Selected Countries</h4>
+            </div> : <div className='noCountries'>None</div>}
+        <h4>Selected Countries</h4>
+            {alertError && 
+                <Alert 
+                title={alertError.title} 
+                message={alertError.message}
+                onClose={closeAlert} />
+                }
         </div> 
-        {/* {console.log([formData.selectedCountries, formData.countries])}  */}
         </div>
         </div>
     );

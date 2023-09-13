@@ -1,29 +1,21 @@
 import './home.modules.css'
 import Card from '../Card/card'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation } from '../Redux/action-types';
+import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation, setContinent } from '../Redux/action-types';
 
-const Home=({countries, onPageChange, currentPage, backHome})=>{
-    const countriesPerPage = 10;
-    
+const Home=({onPageChange, currentPage,clearFilter})=>{
+    const dispatch= useDispatch();
+    const countriesPerPage = 10;   
     const indexOfLastCountry = currentPage * countriesPerPage;
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-    const dispatch= useDispatch();
     let myCountries = useSelector(state => state.myCountries);
     let allActivities = useSelector(state => state.allActivities);
-    const error= useSelector(state=> state.error)
     const loading= useSelector(state=>state.loading)
-    const[aux, setAux]=useState(false)
-    // const [currentCountries, setCurrentCountries]=useState(countries.slice(indexOfFirstCountry, indexOfLastCountry))
-    // const [totalPages, setTotalPages]=useState(Math.ceil(countries.length / countriesPerPage))
-
-    const handleFilter=(e)=>{
-        dispatch(filterByContinents(e.target.value))
-        setAux(!aux)
-        onPageChange(1)
-    }
-
+    // const continent= useSelector(state=> state.continent)
+    const [filterContinent, setFilterContinent]= useState('Null')
+    const [filterActivity, setFilterActivity]=useState('Null')
+    
     const handleOrderAZ=(e)=>{
         dispatch(orderAlfabetico(e.target.value))
         onPageChange(1)
@@ -33,13 +25,21 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
         dispatch(orderPopulation(e.target.value))
         onPageChange(1)
     }
-
+    
+    const handleFilterContinent=(e)=>{
+        setFilterContinent(e.target.value),
+        dispatch(filterByContinents(e.target.value)),
+        dispatch(filterActivities(filterActivity)),
+        onPageChange(1)
+    }
     const handleFilterActivities=(e)=>{
-        dispatch(filterActivities(e.target.value))
+        setFilterActivity(e.target.value),
+        dispatch(filterByContinents(filterContinent)),
+        dispatch(filterActivities(e.target.value)),
         onPageChange(1)
     }
 
-    // useEffect(()=>{
+
         if(loading){
             return(
                 <div className='loading'>
@@ -63,16 +63,10 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
                 </div>
                 </div>
             )
-        }else if(countries.length){
-        const currentCountries = myCountries.length
-        ? myCountries.slice(indexOfFirstCountry, indexOfLastCountry)
-        : countries.slice(indexOfFirstCountry, indexOfLastCountry);
+        }else{
+        const currentCountries = myCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+        const totalPages = Math.ceil(myCountries.length / countriesPerPage)
 
-        const totalPages = myCountries.length
-        ? Math.ceil(myCountries.length / countriesPerPage)
-        : Math.ceil(countries.length / countriesPerPage)
-
-    
         return(
         <div className='home1'>
             <div className='pages'>
@@ -80,7 +74,7 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
                 Previous
             </button>
             {Array.from({ length: totalPages }, (_, index) => (
-                <button className='numberPages' key={index + 1} onClick={() => onPageChange(index + 1)}>
+                <button className={index +1 === currentPage? 'currentPage' : 'numberPages'} key={index + 1} onClick={() => onPageChange(index + 1)}>
                 {index + 1}
                 </button>
             ))}
@@ -91,7 +85,7 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
         <div className='homePage'>
             <div className='filters'> 
             <h4>Filter</h4>
-            <select  name="Filter" onChange={handleFilter} className='filter'>
+            <select value={filterContinent} name="Filter" onChange={handleFilterContinent} className='filter'>
                 <option value="Null" >Filter by contient</option>
                 <option value="North America" >North America</option>
                 <option value="South America" >South America</option>
@@ -100,50 +94,41 @@ const Home=({countries, onPageChange, currentPage, backHome})=>{
                 <option value="Africa">Africa</option>
                 <option value="Oceania">Oceania</option>
                 <option value="Antarctica">Antarctica</option>
-                <option value="All" >Show all</option>
             </select>
 
-
-            <select name="FilterActivities" id="Activities Order" onChange={handleFilterActivities} className='filter'>
-            <option value="Null" >Filter by Activities</option> 
-            {allActivities.map(activity=>{
-                return <option key={activity.id} value={activity.name}>{activity.name}</option>
-            })}
-            <option value="All">Show All</option>
+            <select value={filterActivity} name="FilterActivities" id="Activities Order" onChange={handleFilterActivities} className='filter'>
+                <option value="Null" >Filter by Activities</option> 
+                {allActivities.map(activity=>{
+                    return <option key={activity.id} value={activity.name}>{activity.name}</option>
+                })}
             </select>
-            <select name="Order" id="Alphabetic Order"  onChange={handleOrderAZ} className='filter'>
-            <option value="Null" >Order A-Z</option>   
-            <option value="A">A-Z</option>
-            <option value="D">Z-A</option>
+                <select name="Order" id="Alphabetic Order"  onChange={handleOrderAZ} className='filter'>
+                <option value="Null" >Order A-Z</option>   
+                <option value="A">A-Z</option>
+                <option value="D">Z-A</option>
             </select>
 
             <select name="OrderNum" id="Population Order"  onChange={handleOrderPopulation} className='filter'>
-            <option value="Null" >Order by population</option> 
-            <option value="D">More populated first</option>
-            <option value="A">Less populated first</option>
+                <option value="Null" >Order by population</option> 
+                <option value="D">More populated first</option>
+                <option value="A">Less populated first</option>
             </select>
-            <button onClick={backHome} className='clearFilterButton'> Clear filters </button>
+            <button onClick={clearFilter} className='clearFilterButton'> Clear filters </button>
             </div>
 
             <div className='home2'>
             <div className='countries'>
-            {(currentCountries.map((e) => (
+                
+            {currentCountries.length?
+            (currentCountries.map((e) => (
             <Card key={e.id} flag={e.flags} name={e.commonName} id={e.id} continent={e.continents} />
-            )))}
-        </div>
+            )))
+            :<div className='divEmpty'><h1>No countries to show.</h1></div>
+            }
             </div>
-
             </div>
             </div>
-        )} //else{ 
-        //     if(!loading){
-        //         return(
-        //             <div className='serverOff'><h1>Something went wrong!</h1></div>
-        //         )
-        //     }
-        // }
-    
-
-}
+            </div>
+        )}}
 
 export default Home
