@@ -2,9 +2,9 @@ import './home.modules.css'
 import Card from '../Card/card'
 import { useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation, setContinent } from '../Redux/action-types';
+import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation, setContinent, setLoading, resetFilter, } from '../Redux/action-types';
 
-const Home=({onPageChange, currentPage,clearFilter})=>{
+const Home=({onPageChange, currentPage})=>{
     const dispatch= useDispatch();
     let myCountries = useSelector(state => state.myCountries);
     let allActivities = useSelector(state => state.allActivities);
@@ -12,6 +12,17 @@ const Home=({onPageChange, currentPage,clearFilter})=>{
     // const continent= useSelector(state=> state.continent)
     const [filterContinent, setFilterContinent]= useState('Null')
     const [filterActivity, setFilterActivity]=useState('Null')
+
+    const clearFilter=()=>{
+        if (!loading) {
+            dispatch(setLoading(true))
+            dispatch(resetFilter())
+            setFilterContinent('Null')
+            setFilterActivity('Null')
+            dispatch(setLoading(false))
+            onPageChange(1)
+          }
+      }
     
     const handleOrderAZ=(e)=>{
         dispatch(orderAlfabetico(e.target.value))
@@ -26,7 +37,7 @@ const Home=({onPageChange, currentPage,clearFilter})=>{
     const handleFilterContinent=(e)=>{
         setFilterContinent(e.target.value),
         dispatch(filterByContinents(e.target.value)),
-        dispatch(filterActivities(filterActivity)),
+        // dispatch(filterActivities(filterActivity)),
         onPageChange(1)
     }
     const handleFilterActivities=(e)=>{
@@ -113,7 +124,7 @@ const Home=({onPageChange, currentPage,clearFilter})=>{
                 <option value="D">More populated first</option>
                 <option value="A">Less populated first</option>
             </select>
-            <button onClick={clearFilter} className='clearFilterButton'> Clear filters </button>
+            <button onClick={()=>clearFilter()} className='clearFilterButton'> Clear filters </button>
             </div>
 
             <div className='home2'>

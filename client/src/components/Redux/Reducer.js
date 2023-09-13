@@ -59,7 +59,7 @@ const rootReducer=(state= initialState, action)=>{
         case RESET_FILTER:
             return{
                 ...state,
-                myCountries:state.allCountries
+                myCountries:state.allCountries,
             };
         case SET_MY_COUNTRIES:
             return{

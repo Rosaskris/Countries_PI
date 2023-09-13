@@ -68,16 +68,6 @@ const backHome = () => {
         setCurrentPage(1)
   }};
 
-//clearFilter
-const clearFilter=()=>{
-  if (!loading) {
-        dispatch(setLoading(true))
-        dispatch(resetFilter())
-        dispatch(setLoading(false))
-        setCurrentPage(1)
-    }
-}
-
 //searchName
 const onSearch = async (name) => {
   if (!loading) {
@@ -101,7 +91,7 @@ const onSearch = async (name) => {
       <Routes>
       <Route path='/' element={<Landing/>}/>
       <Route path='/about' element={<About/>}/>
-      <Route path='/home' element={<Home onPageChange={handlePageChange} currentPage={currentPage} backHome={backHome} clearFilter={clearFilter}/>}/>
+      <Route path='/home' element={<Home onPageChange={handlePageChange} currentPage={currentPage} backHome={backHome}/>}/>
       <Route path='/detail/:id' element={<Detail/>}/>
       <Route path='/form' element={<Form/>}/>
       <Route path='/activities' element={<Activity/>}/>
