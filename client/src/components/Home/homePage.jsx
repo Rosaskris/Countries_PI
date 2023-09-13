@@ -6,9 +6,6 @@ import { filterActivities, filterByContinents, orderAlfabetico, orderPopulation,
 
 const Home=({onPageChange, currentPage,clearFilter})=>{
     const dispatch= useDispatch();
-    const countriesPerPage = 10;   
-    const indexOfLastCountry = currentPage * countriesPerPage;
-    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
     let myCountries = useSelector(state => state.myCountries);
     let allActivities = useSelector(state => state.allActivities);
     const loading= useSelector(state=>state.loading)
@@ -20,7 +17,7 @@ const Home=({onPageChange, currentPage,clearFilter})=>{
         dispatch(orderAlfabetico(e.target.value))
         onPageChange(1)
     }
-
+    
     const handleOrderPopulation=(e)=>{
         dispatch(orderPopulation(e.target.value))
         onPageChange(1)
@@ -38,7 +35,10 @@ const Home=({onPageChange, currentPage,clearFilter})=>{
         dispatch(filterActivities(e.target.value)),
         onPageChange(1)
     }
-
+//pages    
+    const countriesPerPage = 10;   
+    const indexOfLastCountry = currentPage * countriesPerPage;
+    const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
 
         if(loading){
             return(

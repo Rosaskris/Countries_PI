@@ -116,7 +116,11 @@ const hasErrors = Object.values(errors).some(error => error);
                 dispatch(setLoading(false))
             })
             .catch(error => {
-                setAlertError({title: 'Ups!', message:'Please check the data'});
+                if(error.message.includes('406')){
+                    setAlertError({title: 'Ups!', message:'Activity already exist'}); 
+                } else{
+                    setAlertError({title: 'Ups!', message:'Please check the data'});
+                }
                 dispatch(setLoading(false))
             });
         }
