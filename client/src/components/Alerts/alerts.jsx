@@ -1,4 +1,4 @@
-import styles from './alerts.css';
+// import styles from './alerts.css';
 
 export default function Alert({ title, message, onClose }) {
   return (

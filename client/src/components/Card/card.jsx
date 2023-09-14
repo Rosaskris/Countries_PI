@@ -13,6 +13,7 @@ export default function Card(props) {
             <h1 className='cardName'>{props.name}</h1>
             </Link>
             <h2>{props.continent}</h2>
+            <h2>{props.population}</h2>
         </div>
     )
 
