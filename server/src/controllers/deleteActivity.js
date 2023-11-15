@@ -7,7 +7,7 @@ const deleteActivity=async(req,res)=>{
         const { id } = req.params;
         const act= await Activity.findAll({where:{id}})
         if(act.length){
-            await Activity.destroy({ where: { id } });
+            await Activity.destroy({ where: { id } });// habilitar o deshabilitar
     
             const allActivities= await Activity.findAll({
                 include:{

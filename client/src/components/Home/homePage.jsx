@@ -132,7 +132,7 @@ const Home=({onPageChange, currentPage})=>{
                 
             {currentCountries.length?
             (currentCountries.map((e) => (
-            <Card key={e.id} flag={e.flags} name={e.commonName} id={e.id} continent={e.continents} />
+            <Card key={e.id} flag={e.flags} name={e.commonName} id={e.id} continent={e.continents} population={e.population} />
             )))
             :<div className='divEmpty'><h1>No countries to show.</h1></div>
             }

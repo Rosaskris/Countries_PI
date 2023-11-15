@@ -7,7 +7,7 @@ const postActivity= async (req,res)=>{
             return res.status(404).json({ message: 'Missing informarion' })
         } else{
             const [newActivity, created] = await Activity.findOrCreate({
-                where: { name, difficulty, duration, season },
+                where: { name, difficulty, duration, season, countries },
                 defaults: {} 
             });
             if(created){
